@@ -17,3 +17,16 @@ SET "balance" = "balance" + ("balance" * 0.1 * COALESCE((
   WHERE "userId" = "Users"."id" AND "createdAt" BETWEEN '2023-11-01' AND '2024-01-14'
 ), 0))
 WHERE "role" = 'customer';
+
+// 11 task - апдейт баланса топ 3 креатора на +10$
+UPDATE "Users"
+SET "balance" = "balance" + 10
+WHERE "role" = 'creator'
+AND "id" IN (
+    SELECT "id"
+    FROM "Users"
+    WHERE "role" = 'creator'
+    ORDER BY "rating" DESC
+    LIMIT 3
+);
+

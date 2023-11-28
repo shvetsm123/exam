@@ -5,35 +5,34 @@ import {
   addMessage,
   changeBlockStatusInStore,
 } from '../../../store/slices/chatSlice';
-import _ from 'lodash';
 
 class ChatSocket extends WebSocket {
-  constructor (dispatch, getState, room) {
-    super(dispatch, getState, room);
-  }
-
   anotherSubscribes = () => {
     this.onNewMessage();
     this.onChangeBlockStatus();
   };
 
   onChangeBlockStatus = () => {
-    this.socket.on(CONTANTS.CHANGE_BLOCK_STATUS, data => {
+    this.socket.on(CONTANTS.CHANGE_BLOCK_STATUS, (data) => {
+      if (isEqual(data.message, this.previousMessage)) {
+        return;
+      }
       this.dispatch(changeBlockStatusInStore(data.message));
+      this.previousMessage = data.message;
     });
   };
 
   onNewMessage = () => {
-    this.socket.on('newMessage', data => {
+    this.socket.on('newMessage', (data) => {
       this.dispatch(addMessage(data.message));
     });
   };
 
-  subscribeChat = id => {
+  subscribeChat = (id) => {
     this.socket.emit('subscribeChat', id);
   };
 
-  unsubscribeChat = id => {
+  unsubscribeChat = (id) => {
     this.socket.emit('unsubscribeChat', id);
   };
 }

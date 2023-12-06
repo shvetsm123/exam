@@ -4,6 +4,10 @@ UPDATE "Banks"
 SET expiry = '09/30'
 WHERE name = 'yriy';
 
+UPDATE "Users"
+SET role = 'moder'
+WHERE id = 3;
+
 // 9 task - подсчет всех юзеров по ролям
 SELECT role, COUNT(*) 
 FROM "Users"

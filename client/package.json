@@ -21,6 +21,7 @@
     "react-flickity-component": "^3.6.1",
     "react-image-lightbox": "^5.1.1",
     "react-input-mask": "^2.0.4",
+    "react-paginate": "^8.2.0",
     "react-rating": "^2.0.5",
     "react-redux": "^7.2.4",
     "react-router-dom": "^5.2.0",

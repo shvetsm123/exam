@@ -30,13 +30,9 @@ class ContestPage extends React.Component {
   }
 
   componentDidMount() {
-    this.getData();
-  }
-
-  getData = () => {
     const { params } = this.props.match;
     this.props.getData({ contestId: params.id });
-  };
+  }
 
   setOffersList = () => {
     const array = [];

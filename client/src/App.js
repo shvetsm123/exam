@@ -19,9 +19,13 @@ import CONSTANTS from './constants';
 import browserHistory from './browserHistory';
 import ChatContainer from './components/Chat/ChatComponents/ChatContainer/ChatContainer';
 import Events from './pages/Events/Events';
+import ModerPanel from './pages/ModerPanel/ModerPanel';
+import ModerHoc from './components/PrivateHoc/ModerHoc';
 
 class App extends Component {
   render() {
+    console.log('Props in App:', this.props);
+
     return (
       <Router history={browserHistory}>
         <ToastContainer
@@ -54,6 +58,7 @@ class App extends Component {
             component={PrivateHoc(StartContestPage)}
           />
           <Route exact path="/events" component={PrivateHoc(Events)} />
+          <Route exact path="/moderPanel" component={ModerHoc(ModerPanel)} />
           <Route
             exact
             path="/startContest/nameContest"

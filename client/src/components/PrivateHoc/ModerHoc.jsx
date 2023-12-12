@@ -1,10 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import { getUser } from '../../store/slices/userSlice';
 import CONSTANTS from '../../constants';
+import { getUser } from '../../store/slices/userSlice';
 
-const PrivateHoc = (Component, props) => {
+const ModerHoc = (Component, props) => {
   class Hoc extends React.Component {
     componentDidMount() {
       if (!this.props.data) {
@@ -18,13 +18,16 @@ const PrivateHoc = (Component, props) => {
       }
 
       if (!this.props.data) {
-        return <Redirect to="/login" />;
+        return (
+          <Component
+            history={this.props.history}
+            match={this.props.match}
+            {...props}
+          />
+        );
       }
 
-      if (
-        this.props.data.role === CONSTANTS.CREATOR &&
-        this.props.data.role === CONSTANTS.CUSTOMER
-      ) {
+      if (this.props.data.role !== CONSTANTS.MODER) {
         return <Redirect to="/" />;
       }
 
@@ -47,4 +50,4 @@ const PrivateHoc = (Component, props) => {
   return connect(mapStateToProps, mapDispatchToProps)(Hoc);
 };
 
-export default PrivateHoc;
+export default ModerHoc;

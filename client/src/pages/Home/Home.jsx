@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Header from '../../components/Header/Header';
 import CONSTANTS from '../../constants';
@@ -13,6 +13,8 @@ const Home = (props) => {
   const [index, setIndex] = useState(0);
   const [styleName, setStyle] = useState(styles.headline__static);
   const timeoutRef = useRef();
+  const { isFetching } = props.userStore;
+  const history = useHistory();
 
   useEffect(() => {
     timeoutRef.current = setInterval(() => {
@@ -26,11 +28,13 @@ const Home = (props) => {
     };
   }, []);
 
-  const { isFetching } = props;
   const text =
     CONSTANTS.HEADER_ANIMATION_TEXT[
       index % CONSTANTS.HEADER_ANIMATION_TEXT.length
     ];
+  if (props.userStore.data && props.userStore.data.role === CONSTANTS.MODER) {
+    history.push('/moderPanel');
+  }
   return (
     <>
       <Header />
@@ -266,9 +270,8 @@ const Home = (props) => {
   );
 };
 
-const mapStateToProps = (state) => {
-  const { isFetching } = state.userStore;
-  return { isFetching };
+const mapStateToProps = ({ userStore }) => {
+  return { userStore };
 };
 
 export default connect(mapStateToProps, null)(Home);

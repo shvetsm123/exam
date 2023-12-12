@@ -133,22 +133,15 @@ const Timer = () => {
       notificationUnit: '',
     });
 
-    console.log('Remaining Time:', remainingTimeInSeconds);
-
     const notifyBeforeInSeconds =
       eventData.notificationNumber *
       calculateUnitMultiplier(eventData.notificationUnit);
-
-    console.log('Event Duration:', eventDuration);
-    console.log('Notify Before:', notifyBeforeInSeconds);
 
     if (
       eventData.notificationNumber &&
       eventData.notificationUnit &&
       notifyBeforeInSeconds === remainingTimeInSeconds
     ) {
-      console.log('Notification time matched. Scheduling toast...');
-
       const intervalId = setInterval(() => {
         const now = moment();
         const eventTime = moment(newEvent.eventEndDate);
@@ -157,10 +150,7 @@ const Timer = () => {
           'seconds'
         );
 
-        console.log('Adjusted Event Time:', adjustedEventTime.format());
-
         if (now.isSameOrAfter(adjustedEventTime)) {
-          console.log('Showing toast...');
           toast.info(
             `Notification for ${newEvent.eventName}: ${formatTime(
               remainingTimeInSeconds

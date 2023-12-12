@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { connect } from 'react-redux';
 import moment from 'moment';
 import className from 'classnames';
@@ -10,34 +10,37 @@ import ChatHeader from '../../ChatComponents/ChatHeader/ChatHeader';
 import styles from './Dialog.module.sass';
 import ChatInput from '../../ChatComponents/ChatInut/ChatInput';
 
-class Dialog extends React.Component {
-  componentDidMount() {
-    this.props.getDialog({ interlocutorId: this.props.interlocutor.id });
-    this.scrollToBottom();
-  }
+const Dialog = (props) => {
+  const {
+    getDialog,
+    clearMessageList,
+    messages,
+    userId,
+    interlocutor,
+    chatData,
+  } = props;
 
-  messagesEnd = React.createRef();
+  const messagesEnd = useRef(null);
 
-  scrollToBottom = () => {
-    this.messagesEnd.current.scrollIntoView({ behavior: 'smooth' });
+  useEffect(() => {
+    getDialog({ interlocutorId: interlocutor.id });
+    return () => {
+      clearMessageList();
+    };
+  }, [getDialog, clearMessageList, interlocutor.id]);
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages]);
+
+  const scrollToBottom = () => {
+    if (messagesEnd.current) {
+      messagesEnd.current.scrollIntoView({ behavior: 'smooth' });
+    }
   };
 
-  componentWillReceiveProps(nextProps, nextContext) {
-    if (nextProps.interlocutor.id !== this.props.interlocutor.id)
-      this.props.getDialog({ interlocutorId: nextProps.interlocutor.id });
-  }
-
-  componentWillUnmount() {
-    this.props.clearMessageList();
-  }
-
-  componentDidUpdate() {
-    if (this.messagesEnd.current) this.scrollToBottom();
-  }
-
-  renderMainDialog = () => {
+  const renderMainDialog = () => {
     const messagesArray = [];
-    const { messages, userId } = this.props;
     let currentTime = moment();
     messages.forEach((message, i) => {
       if (!currentTime.isSame(message.createdAt, 'date')) {
@@ -59,15 +62,20 @@ class Dialog extends React.Component {
           <span className={styles.messageTime}>
             {moment(message.createdAt).format('HH:mm')}
           </span>
-          <div ref={this.messagesEnd} />
         </div>
       );
     });
-    return <div className={styles.messageList}>{messagesArray}</div>;
+
+    return (
+      <div className={styles.messageList}>
+        {messagesArray}
+        <div ref={messagesEnd} />
+      </div>
+    );
   };
 
-  blockMessage = () => {
-    const { userId, chatData } = this.props;
+  const blockMessage = () => {
+    const { userId } = props;
     const { blackList, participants } = chatData;
     const userIndex = participants.indexOf(userId);
     let message;
@@ -79,22 +87,18 @@ class Dialog extends React.Component {
     return <span className={styles.messageBlock}>{message}</span>;
   };
 
-  render() {
-    const { chatData, userId } = this.props;
-    return (
-      <>
-        <ChatHeader userId={userId} />
-        {this.renderMainDialog()}
-        <div ref={this.messagesEnd} />
-        {chatData && chatData.blackList.includes(true) ? (
-          this.blockMessage()
-        ) : (
-          <ChatInput />
-        )}
-      </>
-    );
-  }
-}
+  return (
+    <>
+      <ChatHeader userId={userId} />
+      {renderMainDialog()}
+      {chatData && chatData.blackList.includes(true) ? (
+        blockMessage()
+      ) : (
+        <ChatInput />
+      )}
+    </>
+  );
+};
 
 const mapStateToProps = (state) => state.chatStore;
 

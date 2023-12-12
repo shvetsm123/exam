@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useEffect } from 'react';
 import { connect } from 'react-redux';
 import styles from './ContestCreationPage.module.sass';
 import { saveContestToStore } from '../../store/slices/contestCreationSlice';
@@ -30,7 +30,11 @@ const ContestCreationPage = (props) => {
     }
   };
 
-  !props.bundleStore.bundle && props.history.replace('/startContest');
+  useEffect(() => {
+    if (!props.bundleStore.bundle) {
+      props.history.replace('/startContest');
+    }
+  }, [props.bundleStore.bundle, props.history]);
 
   return (
     <div>
@@ -59,7 +63,7 @@ const ContestCreationPage = (props) => {
         <div className={styles.lastContainer}>
           <div className={styles.buttonsContainer}>
             <BackButton />
-            <NextButton submit={submitForm} />
+            <NextButton submit={() => submitForm()} />
           </div>
         </div>
       </div>

@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { getUser } from '../../store/slices/userSlice';
-import Spinner from '../Spinner/Spinner';
 
 const PrivateHoc = (Component, props) => {
   class Hoc extends React.Component {
@@ -13,18 +12,20 @@ const PrivateHoc = (Component, props) => {
     }
 
     render() {
+      if (this.props.isFetching) {
+        return null;
+      }
+
+      if (!this.props.data) {
+        return <Redirect to="/login" />;
+      }
+
       return (
-        <>
-          {this.props.isFetching ? (
-            <Spinner />
-          ) : (
-            <Component
-              history={this.props.history}
-              match={this.props.match}
-              {...props}
-            />
-          )}
-        </>
+        <Component
+          history={this.props.history}
+          match={this.props.match}
+          {...props}
+        />
       );
     }
   }

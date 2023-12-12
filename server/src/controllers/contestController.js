@@ -13,6 +13,7 @@ const userQueries = require('./queries/userQueries');
 const controller = require('../socketInit');
 const UtilFunctions = require('../utils/functions');
 const CONSTANTS = require('../constants');
+const { sendEmail } = require('../utils/sendEmail');
 
 module.exports.dataForContest = async (req, res, next) => {
   const response = {};
@@ -379,18 +380,34 @@ module.exports.updateOfferModerStatus = async (req, res, next) => {
       params: { offerId },
       body: { moderStatus },
     } = req;
-    const offer = await Offer.findByPk(offerId);
-    if (!offer) {
-      return res.status(404).send({ error: 'Offer not found' });
-    }
+
+    const offer = await Offer.findByPk(offerId, {
+      include: [
+        {
+          model: User,
+          attributes: ['email'],
+        },
+      ],
+    });
+
+    const userEmail = offer.User.email;
+
     const currentModerStatus = offer.moderStatus;
     if (currentModerStatus !== moderStatus) {
       await offer.update({ moderStatus });
-      res.send({ offerId, moderStatus });
+
+      const recipientEmail = userEmail;
+      const emailSubject = 'Moder Status Upgrade';
+      const emailHtml = `Your offer status was upgraded to ${moderStatus}`;
+
+      const url = await sendEmail(recipientEmail, emailSubject, emailHtml);
+
+      res.send({ offerId, moderStatus, url });
     } else {
       res.send({ offerId, currentModerStatus });
     }
   } catch (error) {
+    console.error('Error in updateOfferModerStatus:', error);
     next(new ServerError());
   }
 };

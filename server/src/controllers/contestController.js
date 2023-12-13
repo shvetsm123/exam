@@ -13,6 +13,7 @@ const userQueries = require('./queries/userQueries');
 const controller = require('../socketInit');
 const UtilFunctions = require('../utils/functions');
 const CONSTANTS = require('../constants');
+const { sendEmail } = require('../utils/sendEmail');
 
 module.exports.dataForContest = async (req, res, next) => {
   const response = {};
@@ -20,7 +21,6 @@ module.exports.dataForContest = async (req, res, next) => {
     const {
       body: { characteristic1, characteristic2 },
     } = req;
-    console.log(req.body, characteristic1, characteristic2);
     const types = [characteristic1, characteristic2, 'industry'].filter(
       Boolean
     );
@@ -64,10 +64,14 @@ module.exports.getContestById = async (req, res, next) => {
         {
           model: Offer,
           required: false,
-          where:
-            req.tokenData.role === CONSTANTS.CREATOR
-              ? { userId: req.tokenData.userId }
-              : {},
+          where: {
+            ...(req.tokenData.role === CONSTANTS.CUSTOMER && {
+              moderStatus: CONSTANTS.MODER_STATUS_ACCEPTED,
+            }),
+            ...(req.tokenData.role === CONSTANTS.CREATOR && {
+              userId: req.tokenData.userId,
+            }),
+          },
           attributes: { exclude: ['userId', 'contestId'] },
           include: [
             {
@@ -258,31 +262,40 @@ module.exports.setOfferStatus = async (req, res, next) => {
 };
 
 module.exports.getCustomersContests = async (req, res, next) => {
-  await Contest.findAll({
-    where: { status: req.headers.status, userId: req.tokenData.userId },
-    limit: req.body.limit,
-    offset: req.body.offset ? req.body.offset : 0,
-    order: [['id', 'DESC']],
-    include: [
-      {
-        model: Offer,
-        required: false,
-        attributes: ['id'],
-      },
-    ],
-  })
-    .then((contests) => {
-      contests.forEach(
-        (contest) =>
-          (contest.dataValues.count = contest.dataValues.Offers.length)
+  try {
+    const contests = await Contest.findAll({
+      where: { status: req.headers.status, userId: req.tokenData.userId },
+      limit: req.body.limit,
+      offset: req.body.offset ? req.body.offset : 0,
+      order: [['id', 'DESC']],
+      include: [
+        {
+          model: Offer,
+          required: false,
+          attributes: ['id', 'moderStatus'],
+        },
+      ],
+    });
+
+    contests.forEach((contest) => {
+      const acceptedOffers = contest.Offers.filter(
+        (offer) =>
+          offer.dataValues.moderStatus === CONSTANTS.MODER_STATUS_ACCEPTED
       );
-      let haveMore = true;
-      if (contests.length === 0) {
-        haveMore = false;
-      }
-      res.send({ contests, haveMore });
-    })
-    .catch((err) => next(new ServerError(err)));
+
+      contest.dataValues.count = acceptedOffers.length;
+    });
+
+    let haveMore = true;
+    if (contests.length === 0) {
+      haveMore = false;
+    }
+
+    res.send({ contests, haveMore });
+  } catch (err) {
+    console.error('Error in getCustomersContests:', err);
+    next(new ServerError(err));
+  }
 };
 
 module.exports.getContests = async (req, res, next) => {
@@ -306,18 +319,94 @@ module.exports.getContests = async (req, res, next) => {
       },
     ],
   })
-    .then((contests) => {
-      contests.forEach(
-        (contest) =>
-          (contest.dataValues.count = contest.dataValues.Offers.length)
+    .then(async (contests) => {
+      const updatedContests = await Promise.all(
+        contests.map(async (contest) => {
+          const offersCount = await Offer.count({
+            where: {
+              contestId: contest.id,
+              userId: req.tokenData.userId,
+            },
+          });
+          return {
+            ...contest.toJSON(),
+            count: offersCount,
+          };
+        })
       );
       let haveMore = true;
       if (contests.length === 0) {
         haveMore = false;
       }
-      res.send({ contests, haveMore });
+
+      res.send({ contests: updatedContests, haveMore });
     })
     .catch((err) => {
       next(new ServerError());
     });
+};
+
+module.exports.getAllPendingOffers = async (req, res, next) => {
+  try {
+    const allOffers = await Offer.findAll({
+      ...req.pagination,
+      where: { moderStatus: CONSTANTS.MODER_STATUS_PENDING },
+    });
+    res.send(allOffers);
+  } catch (error) {
+    next(new ServerError());
+  }
+};
+
+module.exports.getOneOffer = async (req, res, next) => {
+  try {
+    const {
+      params: { offerId },
+    } = req;
+    const offer = await Offer.findByPk(offerId);
+    if (!offer) {
+      return res.status(404).send({ error: 'Offer not found' });
+    }
+    res.send(offer);
+  } catch (error) {
+    next(new ServerError());
+  }
+};
+
+module.exports.updateOfferModerStatus = async (req, res, next) => {
+  try {
+    const {
+      params: { offerId },
+      body: { moderStatus },
+    } = req;
+
+    const offer = await Offer.findByPk(offerId, {
+      include: [
+        {
+          model: User,
+          attributes: ['email'],
+        },
+      ],
+    });
+
+    const userEmail = offer.User.email;
+
+    const currentModerStatus = offer.moderStatus;
+    if (currentModerStatus !== moderStatus) {
+      await offer.update({ moderStatus });
+
+      const recipientEmail = userEmail;
+      const emailSubject = 'Moder Status Upgrade';
+      const emailHtml = `Your offer status was upgraded to ${moderStatus}`;
+
+      const url = await sendEmail(recipientEmail, emailSubject, emailHtml);
+
+      res.send({ offerId, moderStatus, url });
+    } else {
+      res.send({ offerId, currentModerStatus });
+    }
+  } catch (error) {
+    console.error('Error in updateOfferModerStatus:', error);
+    next(new ServerError());
+  }
 };

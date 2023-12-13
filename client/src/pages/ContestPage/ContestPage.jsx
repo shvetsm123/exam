@@ -30,13 +30,9 @@ class ContestPage extends React.Component {
   }
 
   componentDidMount() {
-    this.getData();
-  }
-
-  getData = () => {
     const { params } = this.props.match;
     this.props.getData({ contestId: params.id });
-  };
+  }
 
   setOffersList = () => {
     const array = [];
@@ -97,7 +93,7 @@ class ContestPage extends React.Component {
       if (isEqual(participants, messagesPreview[i].participants)) {
         return {
           participants: messagesPreview[i].participants,
-          _id: messagesPreview[i]._id,
+          id: messagesPreview[i].id,
           blackList: messagesPreview[i].blackList,
           favoriteList: messagesPreview[i].favoriteList,
         };

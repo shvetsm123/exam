@@ -2,7 +2,7 @@ const path = require('path');
 
 module.exports = {
   JWT_SECRET: 'asdasdasd4as5d4as8d7a8sd4as65d4a8sd7asd4as56d4',
-  ACCESS_TOKEN_TIME: 60 * 60,
+  ACCESS_TOKEN_TIME: 24 * 60 * 60,
   SALT_ROUNDS: 5,
   SQUADHELP_BANK_NUMBER: '4564654564564564',
   SQUADHELP_BANK_NAME: 'SquadHelp',
@@ -22,6 +22,9 @@ module.exports = {
   OFFER_STATUS_PENDING: 'pending',
   OFFER_STATUS_REJECTED: 'rejected',
   OFFER_STATUS_WON: 'won',
+  MODER_STATUS_PENDING: 'pending',
+  MODER_STATUS_REJECTED: 'rejected',
+  MODER_STATUS_ACCEPTED: 'accepted',
   FILES_PATH: path.resolve(__dirname, 'public/'),
   SOCKET_CONNECTION: 'connection',
   SOCKET_SUBSCRIBE: 'subscribe',

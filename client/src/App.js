@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import './App.css';
 import { ToastContainer } from 'react-toastify';
 import LoginPage from './pages/LoginPage/LoginPage';
@@ -16,7 +16,6 @@ import UserProfile from './pages/UserProfile/UserProfile';
 import 'react-toastify/dist/ReactToastify.css';
 import ContestCreationPage from './pages/ContestCreation/ContestCreationPage';
 import CONSTANTS from './constants';
-import browserHistory from './browserHistory';
 import ChatContainer from './components/Chat/ChatComponents/ChatContainer/ChatContainer';
 import Events from './pages/Events/Events';
 import HowItWorks from './components/HowItWorks/HowItWorks';
@@ -24,7 +23,7 @@ import HowItWorks from './components/HowItWorks/HowItWorks';
 class App extends Component {
   render() {
     return (
-      <Router history={browserHistory}>
+      <BrowserRouter>
         <ToastContainer
           position="top-center"
           autoClose={5000}
@@ -56,6 +55,7 @@ class App extends Component {
             component={PrivateHoc(StartContestPage)}
           />
           <Route exact path="/events" component={PrivateHoc(Events)} />
+          <Route exact path="/moderPanel" component={ModerHoc(ModerPanel)} />
           <Route
             exact
             path="/startContest/nameContest"
@@ -90,7 +90,7 @@ class App extends Component {
           <Route component={NotFound} />
         </Switch>
         <ChatContainer />
-      </Router>
+      </BrowserRouter>
     );
   }
 }

@@ -4,9 +4,13 @@ const serverPort = 3000;
 const constants = {
   CUSTOMER: 'customer',
   CREATOR: 'creator',
+  MODER: 'moder',
   CONTEST_STATUS_ACTIVE: 'active',
   CONTEST_STATUS_FINISHED: 'finished',
   CONTEST_STATUS_PENDING: 'pending',
+  MODER_STATUS_PENDING: 'pending',
+  MODER_STATUS_REJECTED: 'rejected',
+  MODER_STATUS_ACCEPTED: 'accepted',
   NAME_CONTEST: 'name',
   LOGO_CONTEST: 'logo',
   TAGLINE_CONTEST: 'tagline',

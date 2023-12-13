@@ -27,7 +27,7 @@ const OfferBox = (props) => {
       if (isEqual(participants, messagesPreview[i].participants)) {
         return {
           participants: messagesPreview[i].participants,
-          _id: messagesPreview[i]._id,
+          id: messagesPreview[i].id,
           blackList: messagesPreview[i].blackList,
           favoriteList: messagesPreview[i].favoriteList,
         };
@@ -99,6 +99,19 @@ const OfferBox = (props) => {
     return null;
   };
 
+  const moderStatus = () => {
+    const { moderStatus } = props.data;
+    if (moderStatus === CONSTANTS.MODER_STATUS_PENDING) {
+      return CONSTANTS.MODER_STATUS_PENDING;
+    }
+    if (moderStatus === CONSTANTS.MODER_STATUS_ACCEPTED) {
+      return CONSTANTS.MODER_STATUS_ACCEPTED;
+    }
+    if (moderStatus === CONSTANTS.MODER_STATUS_REJECTED) {
+      return CONSTANTS.MODER_STATUS_REJECTED;
+    }
+  };
+
   const goChat = () => {
     props.goToExpandedDialog({
       interlocutor: props.data.User,
@@ -152,6 +165,9 @@ const OfferBox = (props) => {
               }
               readonly
             />
+          </div>
+          <div style={{ color: '#556da5', fontSize: '15px' }}>
+            moderation status: {moderStatus()}
           </div>
         </div>
         <div className={styles.responseConainer}>

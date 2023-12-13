@@ -4,7 +4,6 @@ import CONSTANTS from '../../constants';
 import CustomerDashboard from '../../components/CustomerDashboard/CustomerDashboard';
 import CreatorDashboard from '../../components/CreatorDashboard/CreatorDashboard';
 import Header from '../../components/Header/Header';
-import LoginPage from '../LoginPage/LoginPage';
 
 const Dashboard = (props) => {
   const { role, history } = props;
@@ -19,7 +18,9 @@ const Dashboard = (props) => {
       <CreatorDashboard history={history} match={props.match} />
     );
   } else {
-    dashboardComponent = <LoginPage />;
+    dashboardComponent = (
+      <h1 style={{ fontSize: '2rem' }}>You should be creator/customer</h1>
+    );
   }
 
   return (

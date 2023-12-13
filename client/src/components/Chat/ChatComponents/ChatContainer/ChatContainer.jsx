@@ -5,7 +5,6 @@ import CONSTANTS from '../../../../constants';
 
 const ChatContainer = (props) => {
   const { data } = props;
-  console.log('data:', data);
   return <>{data && data.role !== CONSTANTS.MODER ? <Chat /> : null}</>;
 };
 

@@ -56,7 +56,7 @@
 
 Выполнена верстка страницы How It Works. 
 
-Страница помещена в выпадающий список навигации главного меню `CONTESTS/HOW IT WORKS`, а также доступна по ссылке `https://shvetsm123.github.io/http/`.
+Страница помещена в выпадающий список навигации главного меню `CONTESTS/HOW IT WORKS`, а также доступна по ссылке `http://localhost:5000/how-it-works`.
 
 Исходный код - `/client/http-task`
 

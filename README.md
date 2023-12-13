@@ -109,6 +109,10 @@
 
 Выполнено добавление роли `MODER` и статуса `ModerStatus` с помощью миграций, реализации `ModerStatus` при создании `Offer`, создание `ModerPanel`, а также отправки электронного письма при смене `ModerStatus`.
 
+Присвоить роль модератора - `UPDATE "Users"
+SET role = 'moder'
+WHERE id = <id_number>;`
+
 ## Full Stack Chats from MongoBD to Sequelize
 
 Выполнен переход чатов с MongoDB на Sequelize с помощью моделей и миграций, изменен `chatController` и внесены изменения на клиент, касающиеся чатов.

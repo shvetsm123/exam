@@ -21,6 +21,7 @@ import ChatContainer from './components/Chat/ChatComponents/ChatContainer/ChatCo
 import Events from './pages/Events/Events';
 import ModerPanel from './pages/ModerPanel/ModerPanel';
 import ModerHoc from './components/PrivateHoc/ModerHoc';
+import HowItWorks from './components/HowItWorks/HowItWorks';
 
 class App extends Component {
   render() {
@@ -41,6 +42,7 @@ class App extends Component {
         />
         <Switch>
           <Route exact path="/" component={Home} />
+          <Route exact path="/how-it-works" component={HowItWorks} />
           <Route
             exact
             path="/login"

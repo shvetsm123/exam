@@ -63,7 +63,9 @@ class Header extends React.Component {
                 </Link>
               </li>
               <li>
-                <span onClick={this.logOut}>Logout</span>
+                <span style={{ cursor: 'pointer' }} onClick={this.logOut}>
+                  Logout
+                </span>
               </li>
             </ul>
           </div>
@@ -161,9 +163,7 @@ class Header extends React.Component {
                   />
                   <ul>
                     <li>
-                      <a href="https://shvetsm123.github.io/http/">
-                        HOW IT WORKS
-                      </a>
+                      <Link to="/how-it-works">HOW IT WORKS</Link>
                     </li>
                     <li>
                       <a href="/">PRICING</a>

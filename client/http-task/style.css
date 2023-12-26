@@ -2,7 +2,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-size: 12px;
+  font-size: 14px;
   font-family: 'Poppins', sans-serif;
 }
 
@@ -16,18 +16,17 @@ a {
   background-color: #0f2e60;
   display: flex;
   align-items: center;
-  padding: 2rem 0;
+  padding: 1.4rem 0;
 }
 
 .header_container {
   margin: 0 auto;
-  max-width: 1200px;
-  padding: 0 10px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 100%;
+  max-width: 110rem;
   flex-grow: 1;
+  padding: 0 2rem;
 }
 
 .header_nav_ul {
@@ -36,22 +35,16 @@ a {
   align-items: center;
 }
 
-@media screen and (max-width: 768px) {
-  .header_nav_ul {
-    display: none;
-  }
-}
-
 .li_button {
   background-color: transparent;
   color: white;
   border: none;
-  transition: 0.2s;
+  font-size: 0.9rem;
+  font-weight: 600;
 }
 
 .li_button:hover {
   cursor: pointer;
-  font-size: 1.1rem;
 }
 
 .start_button {
@@ -63,6 +56,7 @@ a {
   margin-left: 0.5rem;
   transition: 0.3s;
   text-align: center;
+  font-size: 0.9rem;
 }
 
 .start_button:hover {
@@ -85,10 +79,11 @@ li {
 }
 
 .search_string_input {
-  width: 30vw;
-  padding: 0.8rem;
+  width: 40vw;
+  padding: 0.7rem;
   border-radius: 0.5rem;
   border: none;
+  font-size: 0.9rem;
 }
 
 .input_button {
@@ -157,7 +152,51 @@ li {
   color: white;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 1280px) {
+  .search_string_input {
+    width: 45vw;
+    padding: 0.8rem;
+    border-radius: 0.5rem;
+    border: none;
+    margin-left: 1rem;
+  }
+}
+
+@media screen and (max-width: 1100px) {
+  .search_string_input {
+    width: 60vw;
+    padding: 0.8rem;
+    border-radius: 0.5rem;
+    border: none;
+    margin-left: 1rem;
+  }
+
+  .li_button {
+    font-size: 0;
+  }
+
+  .ri-user-fill,
+  .ri-phone-fill,
+  .ri-heart-fill {
+    font-size: 1.5rem;
+  }
+
+  .start_button {
+    display: none;
+  }
+
+  .account_contact_ul {
+    display: none;
+    position: absolute;
+    background-color: white;
+    border-radius: 0.5rem;
+    margin: 0 5rem 0.5rem 0;
+    z-index: 1;
+    right: -4rem;
+  }
+}
+
+@media screen and (max-width: 800px) {
   .header {
     background-color: #0f2e60;
     display: flex;
@@ -170,32 +209,46 @@ li {
     padding: 0 10px;
     display: flex;
     align-items: center;
-    justify-content: space-around;
+    justify-content: space-between;
+  }
+
+  .header_burger {
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 
   .burger_container {
     display: flex;
     align-items: flex-start;
     justify-content: flex-end;
-    padding: 1rem;
+    padding: 0 1rem 0 2rem;
+  }
+
+  .ri-user-fill,
+  .ri-phone-fill,
+  .ri-heart-fill {
+    font-size: 1.2rem;
+    padding: 0 1rem;
   }
 
   .ri-menu-line {
-    font-size: 3rem;
+    font-size: 1.5rem;
+    font-weight: 600;
     color: white;
     cursor: pointer;
   }
 
   .search_string_input {
-    width: 50vw;
-    padding: 0.8rem;
+    width: 35vw;
+    padding: 0.7rem;
     border-radius: 0.5rem;
     border: none;
     margin-left: 1rem;
   }
 }
 
-@media screen and (max-width: 480px) {
+@media screen and (max-width: 650px) {
   .search_string_input,
   .input_button,
   .ri-search-line {
@@ -211,8 +264,12 @@ li {
 }
 
 .main_nav_ul {
+  margin: 0px auto;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+  flex-grow: 1;
 }
 
 .main_nav_li {
@@ -230,9 +287,8 @@ li {
   align-items: center;
   display: flex;
   color: inherit;
-  transition: 0.3s;
+  transition: color 0.3s;
   position: relative;
-  padding: 1rem;
 }
 
 .main_nav_link:hover {
@@ -313,7 +369,17 @@ li {
   display: block;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 1240px) {
+  .main_nav_ul {
+    display: flex;
+    justify-content: center;
+  }
+
+  .main_nav_link {
+    margin: 0 2rem;
+  }
+}
+@media screen and (max-width: 777px) {
   .main_nav {
     display: none;
     justify-content: flex-start;
@@ -362,12 +428,28 @@ li {
   }
 }
 /* MAIN_NAV-END */
+
+/* MAIN_SCREEN-START */
 .main_container {
   margin: 0 auto;
-  max-width: 1200px;
-  padding: 0 10px;
+  padding: 0 2rem;
+  max-width: 90rem;
 }
-/* MAIN_SCREEN-START */
+
+@media screen and (max-width: 1200px) {
+  .main_container {
+    margin: 0 auto;
+    padding: 0 2rem;
+    max-width: 70rem;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .main_container {
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+}
 
 .main_screen {
   display: flex;
@@ -378,20 +460,26 @@ li {
 }
 
 .main_screen_left {
-  width: 40%;
+  width: 60%;
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: 1rem;
 }
 
 .main_screen_right {
   display: flex;
   justify-content: flex-end;
-  width: 45%;
+  width: 35%;
 }
 
 .main_screen_img {
-  height: 60vh;
+  height: 45vh;
+}
+
+@media screen and (max-width: 1200px) {
+  .main_screen_img {
+    height: 35vh;
+  }
 }
 
 .main_screen_p {
@@ -400,17 +488,17 @@ li {
   border-radius: 2rem;
   color: #377dff;
   width: fit-content;
-  font-size: 0.9rem;
+  font-size: 0.8rem;
 }
 
 .main_screen_h1 {
-  font-size: 3.5rem;
-  font-weight: 500;
+  font-size: 2.9rem;
+  font-weight: 400;
   color: rgb(41, 41, 41);
 }
 
 .main_screen_p2 {
-  font-size: 1.3rem;
+  font-size: 1.15rem;
   color: grey;
 }
 
@@ -421,7 +509,7 @@ li {
 .main_screen_button {
   width: fit-content;
   padding: 1rem 1.5rem;
-  font-size: 1.5rem;
+  font-size: 1.15rem;
   font-weight: 500;
   display: flex;
   align-items: center;
@@ -452,16 +540,26 @@ li {
     display: flex;
     flex-direction: column;
     gap: 2rem;
-    justify-content: center;
-    align-items: center;
+    margin-bottom: 5rem;
   }
 
   .main_screen_h1 {
-    text-align: center;
+    text-align: left;
   }
 
   .main_screen_p2 {
-    text-align: center;
+    text-align: left;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .main_screen_button {
+    justify-content: center;
+    width: 100%;
+  }
+
+  .main_screen_button_a {
+    width: 100%;
   }
 }
 /* MAIN_SCREEN-END */
@@ -486,14 +584,14 @@ li {
 }
 
 .services_title {
-  font-size: 3rem;
+  font-size: 2.3rem;
   font-weight: 400;
   color: rgb(41, 41, 41);
   text-align: center;
 }
 
 .services_desc {
-  font-size: 1.3rem;
+  font-size: 1.1rem;
   color: grey;
   text-align: center;
 }
@@ -517,7 +615,7 @@ li {
   margin: 5rem 0;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 777px) {
   .services_cards {
     display: flex;
     flex-direction: column;
@@ -532,12 +630,12 @@ li {
     gap: 1rem;
     padding: 5rem 2rem;
     align-items: center;
-    margin: 5rem 0;
+    margin: 1rem 0;
   }
 }
 .card_info {
   text-align: center;
-  font-size: 1.3rem;
+  font-size: 1.15rem;
   color: grey;
 }
 
@@ -546,7 +644,7 @@ li {
 }
 
 .card_title {
-  font-size: 2rem;
+  font-size: 1.7rem;
   font-weight: 400;
   color: rgb(41, 41, 41);
   text-align: center;
@@ -590,30 +688,11 @@ li {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  flex-wrap: wrap;
   row-gap: 5rem;
 }
 
-@media (max-width: 1024px) {
-  .contest_info {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    row-gap: 5rem;
-  }
-}
-
-@media (max-width: 480px) {
-  .contest_info {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    row-gap: 5rem;
-  }
-}
-
 .contest_left {
-  width: 50%;
+  width: 40%;
   display: flex;
   justify-content: center;
 }
@@ -629,7 +708,7 @@ li {
 }
 
 .contest_info_img {
-  width: 80%;
+  height: 45rem;
 }
 
 .contest_top {
@@ -637,12 +716,12 @@ li {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding-bottom: 10rem;
+  padding-bottom: 5rem;
   gap: 3rem;
 }
 
 .contest_title {
-  font-size: 3rem;
+  font-size: 2.3rem;
   font-weight: 400;
   color: rgb(41, 41, 41);
   text-align: center;
@@ -672,15 +751,35 @@ li {
 
 .card_number {
   color: #377dff;
-  font-size: 5rem;
+  font-size: 4rem;
 }
 
 .card_text {
   color: grey;
-  font-size: 1.25rem;
+  font-size: 1.2rem;
 }
 
-@media (max-width: 480px) {
+@media (max-width: 1200px) {
+  .contest_info_img {
+    height: 35rem;
+  }
+
+  .contest_info_card {
+    width: 35rem;
+  }
+}
+
+@media (max-width: 500px) {
+  .contest_info_img {
+    height: 20rem;
+  }
+}
+
+@media (max-width: 1000px) {
+  .contest_info {
+    flex-wrap: wrap;
+  }
+
   .contest_info_card {
     display: flex;
     flex-direction: row;
@@ -696,6 +795,13 @@ li {
 
   .card_text {
     font-size: 1.1rem;
+  }
+
+  .contest_info {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    row-gap: 5rem;
   }
 }
 /* CONSTEST-END */
@@ -726,7 +832,6 @@ li {
 
 .li_faq a {
   color: rgb(223, 222, 222);
-  font-size: 1.2rem;
 }
 
 .li_faq a:hover {
@@ -740,7 +845,7 @@ li {
   justify-content: flex-start;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 777px) {
   .faq {
     display: flex;
     flex-direction: column;
@@ -767,7 +872,7 @@ li {
 }
 
 .right_faq_title {
-  font-size: 2.5rem;
+  font-size: 1.8rem;
   font-weight: 400;
   color: #377dff;
   margin-bottom: 1rem;
@@ -798,7 +903,7 @@ li {
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  font-size: 1.2rem;
+  font-size: 1.15rem;
   padding: 1.2rem;
   transition: 0.3s;
 }
@@ -811,7 +916,7 @@ li {
 .accordion-content {
   display: none;
   padding: 1.2rem;
-  font-size: 1.2rem;
+  font-size: 1.15rem;
   border: 1px solid lightgrey;
   margin-top: -0.1rem;
 }
@@ -905,7 +1010,7 @@ li {
 
 .banner_h3 {
   color: #00dffc;
-  font-size: 3.5rem;
+  font-size: 2.3rem;
   font-weight: 500;
 }
 
@@ -919,7 +1024,7 @@ li {
   width: fit-content;
   margin-top: 1rem;
   padding: 1rem 1.5rem;
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   font-weight: 400;
   display: flex;
   align-items: center;
@@ -988,7 +1093,7 @@ li {
   }
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 777px) {
   .banner_h3 {
     color: #00dffc;
     font-size: 2rem;
@@ -1009,7 +1114,7 @@ li {
   }
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 777px) {
   .banner_h3 {
     font-size: 1.8rem;
   }
@@ -1075,7 +1180,7 @@ li {
 
 @media screen and (max-width: 1024px) {
   .stats_img {
-    width: 10rem;
+    width: 5rem;
     padding-top: 3rem;
     padding-bottom: 0;
   }
@@ -1083,7 +1188,7 @@ li {
 
 .stats_text {
   color: grey;
-  font-size: 1.5rem;
+  font-size: 1.1rem;
   text-align: center;
 }
 
@@ -1106,11 +1211,11 @@ li {
 }
 
 .last_info_left {
-  width: 60%;
+  width: 55%;
   box-shadow: 1px 1px 20px 1px rgba(34, 60, 80, 0.2);
   display: flex;
   flex-direction: column;
-  padding: 5rem;
+  padding: 5rem 3rem;
   justify-content: center;
   align-items: start;
 }
@@ -1133,7 +1238,6 @@ li {
 .last_info_left_p {
   color: grey;
   padding: 1rem 0 0 3.5rem;
-  font-size: 1.2rem;
 }
 .hr_last_info {
   margin: 2rem 0;
@@ -1142,28 +1246,23 @@ li {
 }
 
 .last_info_right {
-  width: 40%;
+  width: 45%;
   background: #377dff;
   color: white;
   display: flex;
   flex-direction: column;
   justify-content: center;
   gap: 1rem;
-  padding: 4rem;
+  padding: 4rem 2rem;
 }
 
 .last_info_right_h3 {
-  font-size: 3rem;
+  font-size: 2.3rem;
   font-weight: 400;
-}
-
-.last_info_right_p {
-  font-size: 1.2rem;
 }
 
 .last_info_right_tel {
   color: white;
-  font-size: 1.2rem;
 }
 
 .ri-phone-line {
@@ -1176,7 +1275,7 @@ li {
   border: none;
   border-radius: 5rem;
   padding: 1.5rem;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   margin: 1rem 0;
   transition: 0.3s;
 }
@@ -1199,7 +1298,7 @@ li {
   }
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 777px) {
   .last_info {
     display: flex;
     flex-direction: column;
@@ -1219,6 +1318,7 @@ li {
 
   .last_info_right {
     width: 100%;
+    padding: 2rem;
   }
 }
 
@@ -1249,7 +1349,7 @@ li {
   width: 70%;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 777px) {
   .featured {
     display: flex;
     flex-direction: column;
@@ -1409,7 +1509,7 @@ li {
   border-radius: 0.5rem;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 777px) {
   .search {
     display: flex;
     flex-direction: column;
@@ -1492,7 +1592,7 @@ li {
   font-size: 1.2rem;
 }
 
-@media screen and (max-width: 480px) {
+@media screen and (max-width: 700px) {
   .left_search_input {
     border: none;
     width: 99%;

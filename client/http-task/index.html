@@ -41,58 +41,60 @@
               <i class="ri-search-line"></i>
             </button>
           </div>
-          <nav class="header_nav">
-            <ul class="header_nav_ul">
-              <li class="account">
-                <button class="account_button li_button">
-                  <i class="ri-user-fill"></i> Account
-                </button>
-                <ul class="account_contact_ul">
-                  <li class="account_li">
-                    <a class="contact_li_a" href="/">Login</a>
-                  </li>
-                  <li class="account_li">
-                    <a class="contact_li_a" href="/">Signup</a>
-                  </li>
-                </ul>
-              </li>
-              <li class="contact">
-                <button class="contact_button li_button">
-                  <i class="ri-phone-fill"></i> Contact
-                </button>
-                <ul class="account_contact_ul">
-                  <li class="contact_li">
-                    <a class="contact_li_a" href="/"
-                      ><i class="ri-phone-fill"></i> (877) 355-3585</a
-                    >
-                  </li>
-                  <li class="contact_li">
-                    <a class="contact_li_a" href="/"
-                      ><i class="ri-chat-3-line"></i> Chat</a
-                    >
-                  </li>
-                  <li class="contact_li">
-                    <a class="contact_li_a" href="/"
-                      ><i class="ri-mail-line"></i> Email</a
-                    >
-                  </li>
-                  <li class="contact_li">
-                    <a class="contact_li_a" href="/"
-                      ><i class="ri-question-line"></i> Help Desk</a
-                    >
-                  </li>
-                </ul>
-              </li>
-              <li class="favorites">
-                <button class="favorites_button li_button">
-                  <i class="ri-heart-fill"></i> Favorites
-                </button>
-              </li>
-              <a href="/" class="start_button">Start Contest</a>
-            </ul>
-          </nav>
-          <div class="burger_container" onclick="toggleBurgerMenu()">
-            <i class="ri-menu-line"></i>
+          <div class="header_burger">
+            <nav class="header_nav">
+              <ul class="header_nav_ul">
+                <li class="account">
+                  <button class="account_button li_button">
+                    <i class="ri-user-fill"></i> Account
+                  </button>
+                  <ul class="account_contact_ul">
+                    <li class="account_li">
+                      <a class="contact_li_a" href="/">Login</a>
+                    </li>
+                    <li class="account_li">
+                      <a class="contact_li_a" href="/">Signup</a>
+                    </li>
+                  </ul>
+                </li>
+                <li class="contact">
+                  <button class="contact_button li_button">
+                    <i class="ri-phone-fill"></i> Contact
+                  </button>
+                  <ul class="account_contact_ul">
+                    <li class="contact_li">
+                      <a class="contact_li_a" href="/"
+                        ><i class="ri-phone-fill"></i> (877) 355-3585</a
+                      >
+                    </li>
+                    <li class="contact_li">
+                      <a class="contact_li_a" href="/"
+                        ><i class="ri-chat-3-line"></i> Chat</a
+                      >
+                    </li>
+                    <li class="contact_li">
+                      <a class="contact_li_a" href="/"
+                        ><i class="ri-mail-line"></i> Email</a
+                      >
+                    </li>
+                    <li class="contact_li">
+                      <a class="contact_li_a" href="/"
+                        ><i class="ri-question-line"></i> Help Desk</a
+                      >
+                    </li>
+                  </ul>
+                </li>
+                <li class="favorites">
+                  <button class="favorites_button li_button">
+                    <i class="ri-heart-fill"></i> Favorites
+                  </button>
+                </li>
+                <a href="/" class="start_button">Start Contest</a>
+              </ul>
+            </nav>
+            <div class="burger_container" onclick="toggleBurgerMenu()">
+              <i class="ri-menu-line"></i>
+            </div>
           </div>
 
           <div class="burger_menu" id="burgerMenu">
@@ -356,235 +358,227 @@
 
       <!-- MAIN_NAV-START -->
       <nav class="main_nav">
-        <div class="main_container">
-          <ul class="main_nav_ul">
-            <!-- 1 -->
-            <li class="main_nav_li">
-              <a class="main_nav_link" href="/"
-                >Names For Sale
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  width="12"
-                  height="12"
-                  class="svg"
-                >
-                  <path
-                    d="M11.9997 13.1714L16.9495 8.22168L18.3637 9.63589L11.9997 15.9999L5.63574 9.63589L7.04996 8.22168L11.9997 13.1714Z"
-                  ></path></svg
-              ></a>
-              <ul class="names_for_sale_ul">
-                <li class="names_for_sale_li">
-                  <a class="contact_li_a" href="/"> Popular Brandable Names </a>
-                </li>
-                <li class="names_for_sale_li">
-                  <a class="contact_li_a" href="/">
-                    Premium Domains For Sale
-                  </a>
-                </li>
-                <li class="names_for_sale_li">
-                  <a class="contact_li_a" href="/"> Short Domains </a>
-                  <ul>
-                    <li class="short_domain_li">
-                      <a class="contact_li_a" href="/"> 3 Letter Domains </a>
+        <ul class="main_nav_ul">
+          <!-- 1 -->
+          <li class="main_nav_li">
+            <a class="main_nav_link" href="/"
+              >Names For Sale
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                width="12"
+                height="12"
+                class="svg"
+              >
+                <path
+                  d="M11.9997 13.1714L16.9495 8.22168L18.3637 9.63589L11.9997 15.9999L5.63574 9.63589L7.04996 8.22168L11.9997 13.1714Z"
+                ></path></svg
+            ></a>
+            <ul class="names_for_sale_ul">
+              <li class="names_for_sale_li">
+                <a class="contact_li_a" href="/"> Popular Brandable Names </a>
+              </li>
+              <li class="names_for_sale_li">
+                <a class="contact_li_a" href="/"> Premium Domains For Sale </a>
+              </li>
+              <li class="names_for_sale_li">
+                <a class="contact_li_a" href="/"> Short Domains </a>
+                <ul>
+                  <li class="short_domain_li">
+                    <a class="contact_li_a" href="/"> 3 Letter Domains </a>
+                  </li>
+                  <li class="short_domain_li">
+                    <a class="contact_li_a" href="/"> 4 Letter Domains </a>
+                  </li>
+                  <li class="short_domain_li">
+                    <a class="contact_li_a" href="/"> 5 Letter Domains </a>
+                  </li>
+                </ul>
+              </li>
+              <li class="names_for_sale_li">
+                <a class="contact_li_a" href="/"> One Word Names </a>
+              </li>
+              <li class="names_for_sale_li">
+                <a class="contact_li_a" href="/"> Industry Domains </a>
+              </li>
+              <li class="names_for_sale_li">
+                <a class="contact_li_a" href="/"> Location Based Names </a>
+              </li>
+              <li class="names_for_sale_li">
+                <a class="contact_li_a" href="/"> Recommended For You </a>
+              </li>
+              <li class="names_for_sale_li">
+                <a class="contact_li_a" href="/"> Become A Seller </a>
+              </li>
+            </ul>
+          </li>
+
+          <!-- 2 -->
+          <li class="main_nav_li">
+            <a class="main_nav_link" href="/"
+              >Naming Contest
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                width="12"
+                height="12"
+                class="svg"
+              >
+                <path
+                  d="M11.9997 13.1714L16.9495 8.22168L18.3637 9.63589L11.9997 15.9999L5.63574 9.63589L7.04996 8.22168L11.9997 13.1714Z"
+                ></path></svg
+            ></a>
+            <ul class="names_for_sale_ul">
+              <li class="names_for_sale_li">
+                <a class="contact_li_a" href="/"> Start A Contest </a>
+              </li>
+              <li class="names_for_sale_li">
+                <a class="contact_li_a" href="/"> How It Works </a>
+              </li>
+              <li class="names_for_sale_li">
+                <a class="contact_li_a" href="/"> Contest Pricing </a>
+              </li>
+              <li class="names_for_sale_li">
+                <a class="contact_li_a" href="/"> Agency Services </a>
+              </li>
+              <li class="names_for_sale_li">
+                <a class="contact_li_a" href="/"> Our Work </a>
+              </li>
+              <li class="names_for_sale_li">
+                <a class="contact_li_a" href="/"> Recent Winners </a>
+              </li>
+              <li class="names_for_sale_li">
+                <a class="contact_li_a" href="/"> Active Contests </a>
+              </li>
+              <li class="names_for_sale_li">
+                <a class="contact_li_a" href="/"> Become A Creative </a>
+              </li>
+            </ul>
+          </li>
+
+          <!-- 3 -->
+          <li class="main_nav_li">
+            <a class="main_nav_link" href="/"
+              >Other Services
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                width="12"
+                height="12"
+                class="svg"
+              >
+                <path
+                  d="M11.9997 13.1714L16.9495 8.22168L18.3637 9.63589L11.9997 15.9999L5.63574 9.63589L7.04996 8.22168L11.9997 13.1714Z"
+                ></path></svg
+            ></a>
+            <ul class="names_for_sale_ul">
+              <li class="names_for_sale_li">
+                <a class="contact_li_a" href="/"> Logos </a>
+              </li>
+              <li class="names_for_sale_li">
+                <a class="contact_li_a" href="/"> Taglines </a>
+              </li>
+              <li class="names_for_sale_li">
+                <a class="contact_li_a" href="/"> Audience Testing </a>
+              </li>
+              <li class="names_for_sale_li">
+                <a class="contact_li_a" href="/"> Trademark Research </a>
+              </li>
+              <li class="names_for_sale_li">
+                <a class="contact_li_a" href="/"> Brand Identity Design </a>
+              </li>
+              <li class="names_for_sale_li">
+                <a class="contact_li_a" href="/"> Trademark Filing </a>
+              </li>
+              <li class="names_for_sale_li">
+                <a class="contact_li_a" href="/"> Video Creation </a>
+              </li>
+            </ul>
+          </li>
+
+          <!-- 4 -->
+          <li class="main_nav_li">
+            <a class="main_nav_link" href="/">Agency Experience</a>
+          </li>
+          <!-- span -->
+          <span class="string">|</span>
+
+          <!-- 5 -->
+
+          <li class="main_nav_li">
+            <a class="main_nav_link" href="/"
+              >Resources
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                width="12"
+                height="12"
+                class="svg"
+              >
+                <path
+                  d="M11.9997 13.1714L16.9495 8.22168L18.3637 9.63589L11.9997 15.9999L5.63574 9.63589L7.04996 8.22168L11.9997 13.1714Z"
+                ></path></svg
+            ></a>
+            <ul class="names_for_sale_ul">
+              <li class="names_for_sale_li">
+                <a class="contact_li_a" href="/"> Business Name Generator </a>
+              </li>
+              <li class="names_for_sale_li">
+                <a class="contact_li_a" href="/"> Domain Name Generator </a>
+              </li>
+              <li class="names_for_sale_li">
+                <a class="contact_li_a" href="/"> How to Name Your Business </a>
+              </li>
+              <li class="names_for_sale_li">
+                <a class="contact_li_a" href="/"> Free Trademark Checker </a>
+              </li>
+              <!--  -->
+              <ul>
+                <li class="main_nav_li">
+                  <a class="main_nav_link last_li" href="/"
+                    >Other Services
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                      width="12"
+                      height="12"
+                      class="svg_one"
+                    >
+                      <path
+                        d="M11.9997 13.1714L16.9495 8.22168L18.3637 9.63589L11.9997 15.9999L5.63574 9.63589L7.04996 8.22168L11.9997 13.1714Z"
+                      ></path></svg
+                  ></a>
+                  <ul class="last_ul">
+                    <li class="names_for_sale_li">
+                      <a class="contact_li_a" href="/"> Logos </a>
                     </li>
-                    <li class="short_domain_li">
-                      <a class="contact_li_a" href="/"> 4 Letter Domains </a>
+                    <li class="names_for_sale_li">
+                      <a class="contact_li_a" href="/"> Taglines </a>
                     </li>
-                    <li class="short_domain_li">
-                      <a class="contact_li_a" href="/"> 5 Letter Domains </a>
+                    <li class="names_for_sale_li">
+                      <a class="contact_li_a" href="/"> Audience Testing </a>
+                    </li>
+                    <li class="names_for_sale_li">
+                      <a class="contact_li_a" href="/"> Trademark Research </a>
+                    </li>
+                    <li class="names_for_sale_li">
+                      <a class="contact_li_a" href="/">
+                        Brand Identity Design
+                      </a>
+                    </li>
+                    <li class="names_for_sale_li">
+                      <a class="contact_li_a" href="/"> Trademark Filing </a>
+                    </li>
+                    <li class="names_for_sale_li">
+                      <a class="contact_li_a" href="/"> Video Creation </a>
                     </li>
                   </ul>
                 </li>
-                <li class="names_for_sale_li">
-                  <a class="contact_li_a" href="/"> One Word Names </a>
-                </li>
-                <li class="names_for_sale_li">
-                  <a class="contact_li_a" href="/"> Industry Domains </a>
-                </li>
-                <li class="names_for_sale_li">
-                  <a class="contact_li_a" href="/"> Location Based Names </a>
-                </li>
-                <li class="names_for_sale_li">
-                  <a class="contact_li_a" href="/"> Recommended For You </a>
-                </li>
-                <li class="names_for_sale_li">
-                  <a class="contact_li_a" href="/"> Become A Seller </a>
-                </li>
               </ul>
-            </li>
-
-            <!-- 2 -->
-            <li class="main_nav_li">
-              <a class="main_nav_link" href="/"
-                >Naming Contest
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  width="12"
-                  height="12"
-                  class="svg"
-                >
-                  <path
-                    d="M11.9997 13.1714L16.9495 8.22168L18.3637 9.63589L11.9997 15.9999L5.63574 9.63589L7.04996 8.22168L11.9997 13.1714Z"
-                  ></path></svg
-              ></a>
-              <ul class="names_for_sale_ul">
-                <li class="names_for_sale_li">
-                  <a class="contact_li_a" href="/"> Start A Contest </a>
-                </li>
-                <li class="names_for_sale_li">
-                  <a class="contact_li_a" href="/"> How It Works </a>
-                </li>
-                <li class="names_for_sale_li">
-                  <a class="contact_li_a" href="/"> Contest Pricing </a>
-                </li>
-                <li class="names_for_sale_li">
-                  <a class="contact_li_a" href="/"> Agency Services </a>
-                </li>
-                <li class="names_for_sale_li">
-                  <a class="contact_li_a" href="/"> Our Work </a>
-                </li>
-                <li class="names_for_sale_li">
-                  <a class="contact_li_a" href="/"> Recent Winners </a>
-                </li>
-                <li class="names_for_sale_li">
-                  <a class="contact_li_a" href="/"> Active Contests </a>
-                </li>
-                <li class="names_for_sale_li">
-                  <a class="contact_li_a" href="/"> Become A Creative </a>
-                </li>
-              </ul>
-            </li>
-
-            <!-- 3 -->
-            <li class="main_nav_li">
-              <a class="main_nav_link" href="/"
-                >Other Services
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  width="12"
-                  height="12"
-                  class="svg"
-                >
-                  <path
-                    d="M11.9997 13.1714L16.9495 8.22168L18.3637 9.63589L11.9997 15.9999L5.63574 9.63589L7.04996 8.22168L11.9997 13.1714Z"
-                  ></path></svg
-              ></a>
-              <ul class="names_for_sale_ul">
-                <li class="names_for_sale_li">
-                  <a class="contact_li_a" href="/"> Logos </a>
-                </li>
-                <li class="names_for_sale_li">
-                  <a class="contact_li_a" href="/"> Taglines </a>
-                </li>
-                <li class="names_for_sale_li">
-                  <a class="contact_li_a" href="/"> Audience Testing </a>
-                </li>
-                <li class="names_for_sale_li">
-                  <a class="contact_li_a" href="/"> Trademark Research </a>
-                </li>
-                <li class="names_for_sale_li">
-                  <a class="contact_li_a" href="/"> Brand Identity Design </a>
-                </li>
-                <li class="names_for_sale_li">
-                  <a class="contact_li_a" href="/"> Trademark Filing </a>
-                </li>
-                <li class="names_for_sale_li">
-                  <a class="contact_li_a" href="/"> Video Creation </a>
-                </li>
-              </ul>
-            </li>
-
-            <!-- 4 -->
-            <li class="main_nav_li">
-              <a class="main_nav_link" href="/">Agency Experience</a>
-            </li>
-            <!-- span -->
-            <span class="string">|</span>
-
-            <!-- 5 -->
-
-            <li class="main_nav_li">
-              <a class="main_nav_link" href="/"
-                >Resources
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  width="12"
-                  height="12"
-                  class="svg"
-                >
-                  <path
-                    d="M11.9997 13.1714L16.9495 8.22168L18.3637 9.63589L11.9997 15.9999L5.63574 9.63589L7.04996 8.22168L11.9997 13.1714Z"
-                  ></path></svg
-              ></a>
-              <ul class="names_for_sale_ul">
-                <li class="names_for_sale_li">
-                  <a class="contact_li_a" href="/"> Business Name Generator </a>
-                </li>
-                <li class="names_for_sale_li">
-                  <a class="contact_li_a" href="/"> Domain Name Generator </a>
-                </li>
-                <li class="names_for_sale_li">
-                  <a class="contact_li_a" href="/">
-                    How to Name Your Business
-                  </a>
-                </li>
-                <li class="names_for_sale_li">
-                  <a class="contact_li_a" href="/"> Free Trademark Checker </a>
-                </li>
-                <!--  -->
-                <ul>
-                  <li class="main_nav_li">
-                    <a class="main_nav_link last_li" href="/"
-                      >Other Services
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 24 24"
-                        width="12"
-                        height="12"
-                        class="svg_one"
-                      >
-                        <path
-                          d="M11.9997 13.1714L16.9495 8.22168L18.3637 9.63589L11.9997 15.9999L5.63574 9.63589L7.04996 8.22168L11.9997 13.1714Z"
-                        ></path></svg
-                    ></a>
-                    <ul class="last_ul">
-                      <li class="names_for_sale_li">
-                        <a class="contact_li_a" href="/"> Logos </a>
-                      </li>
-                      <li class="names_for_sale_li">
-                        <a class="contact_li_a" href="/"> Taglines </a>
-                      </li>
-                      <li class="names_for_sale_li">
-                        <a class="contact_li_a" href="/"> Audience Testing </a>
-                      </li>
-                      <li class="names_for_sale_li">
-                        <a class="contact_li_a" href="/">
-                          Trademark Research
-                        </a>
-                      </li>
-                      <li class="names_for_sale_li">
-                        <a class="contact_li_a" href="/">
-                          Brand Identity Design
-                        </a>
-                      </li>
-                      <li class="names_for_sale_li">
-                        <a class="contact_li_a" href="/"> Trademark Filing </a>
-                      </li>
-                      <li class="names_for_sale_li">
-                        <a class="contact_li_a" href="/"> Video Creation </a>
-                      </li>
-                    </ul>
-                  </li>
-                </ul>
-                <!--  -->
-              </ul>
-            </li>
-          </ul>
-        </div>
+              <!--  -->
+            </ul>
+          </li>
+        </ul>
       </nav>
       <!-- MAIN_NAV-END -->
       <div class="main_container">
@@ -768,8 +762,10 @@
                 <div class="section">
                   <input
                     type="checkbox"
+                    data-group="group1"
                     class="accordion-checkbox"
                     id="section1"
+                    checked
                   />
                   <label class="accordion-header" for="section1"
                     >How long does it takes to start receiving submissions?
@@ -796,6 +792,7 @@
                 <div class="section">
                   <input
                     type="checkbox"
+                    data-group="group1"
                     class="accordion-checkbox"
                     id="section2"
                   />
@@ -826,6 +823,7 @@
                 <div class="section">
                   <input
                     type="checkbox"
+                    data-group="group1"
                     class="accordion-checkbox"
                     id="section3"
                   />
@@ -854,6 +852,7 @@
                 <div class="section">
                   <input
                     type="checkbox"
+                    data-group="group1"
                     class="accordion-checkbox"
                     id="section4"
                   />
@@ -894,6 +893,7 @@
                 <div class="section">
                   <input
                     type="checkbox"
+                    data-group="group1"
                     class="accordion-checkbox"
                     id="section5"
                   />
@@ -925,6 +925,7 @@
                 <div class="section">
                   <input
                     type="checkbox"
+                    data-group="group1"
                     class="accordion-checkbox"
                     id="section6"
                   />
@@ -957,6 +958,7 @@
                 <div class="section">
                   <input
                     type="checkbox"
+                    data-group="group1"
                     class="accordion-checkbox"
                     id="section7"
                   />
@@ -986,6 +988,7 @@
                 <div class="section">
                   <input
                     type="checkbox"
+                    data-group="group1"
                     class="accordion-checkbox"
                     id="section8"
                   />
@@ -1013,6 +1016,7 @@
                 <div class="section">
                   <input
                     type="checkbox"
+                    data-group="group1"
                     class="accordion-checkbox"
                     id="section9"
                   />
@@ -1066,8 +1070,10 @@
                 <div class="section">
                   <input
                     type="checkbox"
+                    data-group="group2"
                     class="accordion-checkbox"
                     id="section10"
+                    checked
                   />
                   <label class="accordion-header" for="section10"
                     >What's include with Domain Purchase
@@ -1094,6 +1100,7 @@
                 <div class="section">
                   <input
                     type="checkbox"
+                    data-group="group2"
                     class="accordion-checkbox"
                     id="section11"
                   />
@@ -1123,6 +1130,7 @@
                 <div class="section">
                   <input
                     type="checkbox"
+                    data-group="group2"
                     class="accordion-checkbox"
                     id="section12"
                   />
@@ -1162,8 +1170,10 @@
                 <div class="section">
                   <input
                     type="checkbox"
+                    data-group="group3"
                     class="accordion-checkbox"
                     id="section13"
+                    checked
                   />
                   <label class="accordion-header" for="section13"
                     >What are Managed Contests?
@@ -1198,6 +1208,7 @@
                 <div class="section">
                   <input
                     type="checkbox"
+                    data-group="group3"
                     class="accordion-checkbox"
                     id="section14"
                   />
@@ -1246,6 +1257,7 @@
                 <div class="section">
                   <input
                     type="checkbox"
+                    data-group="group3"
                     class="accordion-checkbox"
                     id="section15"
                   />
@@ -1296,6 +1308,7 @@
                 <div class="section">
                   <input
                     type="checkbox"
+                    data-group="group3"
                     class="accordion-checkbox"
                     id="section16"
                   />
@@ -1332,8 +1345,10 @@
                 <div class="section">
                   <input
                     type="checkbox"
+                    data-group="group4"
                     class="accordion-checkbox"
                     id="section17"
+                    checked
                   />
                   <label class="accordion-header" for="section17"
                     >Can anyone join your platform?
@@ -1364,6 +1379,7 @@
                 <div class="section">
                   <input
                     type="checkbox"
+                    data-group="group4"
                     class="accordion-checkbox"
                     id="section18"
                   />
@@ -1394,6 +1410,7 @@
                 <div class="section">
                   <input
                     type="checkbox"
+                    data-group="group4"
                     class="accordion-checkbox"
                     id="section19"
                   />

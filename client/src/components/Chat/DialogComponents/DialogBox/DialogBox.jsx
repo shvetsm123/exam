@@ -3,18 +3,17 @@ import classNames from 'classnames';
 import styles from './DialogBox.module.sass';
 import CONSTANTS from '../../../../constants';
 
-const DialogBox = (props) => {
-  const {
-    chatPreview,
-    userId,
-    getTimeStr,
-    changeFavorite,
-    changeBlackList,
-    catalogOperation,
-    goToExpandedDialog,
-    chatMode,
-    interlocutor,
-  } = props;
+const DialogBox = ({
+  chatPreview,
+  userId,
+  getTimeStr,
+  changeFavorite,
+  changeBlackList,
+  catalogOperation,
+  goToExpandedDialog,
+  chatMode,
+  interlocutor,
+}) => {
   const { favoriteList, participants, blackList, id, text, createdAt } =
     chatPreview;
   const isFavorite = favoriteList[participants.indexOf(userId)];

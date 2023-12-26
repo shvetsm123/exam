@@ -16,10 +16,21 @@ import styles from './OfferBox.module.sass';
 import 'react-confirm-alert/src/react-confirm-alert.css';
 import './confirmStyle.css';
 
-const OfferBox = (props) => {
+const OfferBox = ({
+  messagesPreview,
+  id,
+  data,
+  setOfferStatus,
+  clearError,
+  changeMark: handleChangeMark,
+  goToExpandedDialog,
+  role,
+  contestType,
+  changeShowImage,
+  needButtons,
+}) => {
   const findConversationInfo = () => {
-    const { messagesPreview, id } = props;
-    const participants = [id, props.data.User.id];
+    const participants = [id, data.User.id];
     participants.sort(
       (participant1, participant2) => participant1 - participant2
     );
@@ -43,8 +54,7 @@ const OfferBox = (props) => {
       buttons: [
         {
           label: 'Yes',
-          onClick: () =>
-            props.setOfferStatus(props.data.User.id, props.data.id, 'resolve'),
+          onClick: () => setOfferStatus(data.User.id, data.id, 'resolve'),
         },
         {
           label: 'No',
@@ -60,8 +70,7 @@ const OfferBox = (props) => {
       buttons: [
         {
           label: 'Yes',
-          onClick: () =>
-            props.setOfferStatus(props.data.User.id, props.data.id, 'reject'),
+          onClick: () => setOfferStatus(data.User.id, data.id, 'reject'),
         },
         {
           label: 'No',
@@ -71,17 +80,17 @@ const OfferBox = (props) => {
   };
 
   const changeMark = (value) => {
-    props.clearError();
-    props.changeMark({
+    clearError();
+    handleChangeMark({
       mark: value,
-      offerId: props.data.id,
-      isFirst: !props.data.mark,
-      creatorId: props.data.User.id,
+      offerId: data.id,
+      isFirst: !data.mark,
+      creatorId: data.User.id,
     });
   };
 
   const offerStatus = () => {
-    const { status } = props.data;
+    const { status } = data;
     if (status === CONSTANTS.OFFER_STATUS_REJECTED) {
       return (
         <i
@@ -100,7 +109,7 @@ const OfferBox = (props) => {
   };
 
   const moderStatus = () => {
-    const { moderStatus } = props.data;
+    const { moderStatus } = data;
     if (moderStatus === CONSTANTS.MODER_STATUS_PENDING) {
       return CONSTANTS.MODER_STATUS_PENDING;
     }
@@ -113,14 +122,13 @@ const OfferBox = (props) => {
   };
 
   const goChat = () => {
-    props.goToExpandedDialog({
-      interlocutor: props.data.User,
+    goToExpandedDialog({
+      interlocutor: data.User,
       conversationData: findConversationInfo(),
     });
   };
 
-  const { data, role, id, contestType } = props;
-  const { avatar, firstName, lastName, email, rating } = props.data.User;
+  const { avatar, firstName, lastName, email, rating } = data.User;
   return (
     <div className={styles.offerContainer}>
       {offerStatus()}
@@ -174,7 +182,7 @@ const OfferBox = (props) => {
           {contestType === CONSTANTS.LOGO_CONTEST ? (
             <img
               onClick={() =>
-                props.changeShowImage({
+                changeShowImage({
                   imagePath: data.fileName,
                   isShowOnFull: true,
                 })
@@ -216,7 +224,7 @@ const OfferBox = (props) => {
           <i onClick={goChat} className="fas fa-comments" />
         )}
       </div>
-      {props.needButtons(data.status) && (
+      {needButtons(data.status) && (
         <div className={styles.btnsContainer}>
           <div onClick={resolveOffer} className={styles.resolveBtn}>
             Resolve

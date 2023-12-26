@@ -4,29 +4,28 @@ import Catalog from '../Catalog/Catalog';
 import styles from '../CatalogListContainer/CatalogListContainer.module.sass';
 import {
   changeShowModeCatalog,
-  deleteCatalog,
+  deleteCatalog as deleteCatalogAction,
 } from '../../../../store/slices/chatSlice';
 
-const CatalogList = (props) => {
+const CatalogList = ({ catalogList, changeShowModeCatalog, deleteCatalog }) => {
   const goToCatalog = (event, catalog) => {
-    props.changeShowModeCatalog(catalog);
+    changeShowModeCatalog(catalog);
     event.stopPropagation();
   };
 
-  const deleteCatalog = (event, catalogId) => {
-    props.deleteCatalog({ catalogId });
+  const handleDeleteCatalog = (event, catalogId) => {
+    deleteCatalog({ catalogId });
     event.stopPropagation();
   };
 
   const getListCatalog = () => {
-    const { catalogList } = props;
     const elementList = [];
     catalogList.forEach((catalog) => {
       elementList.push(
         <Catalog
           catalog={catalog}
           key={catalog.id}
-          deleteCatalog={deleteCatalog}
+          deleteCatalog={handleDeleteCatalog}
           goToCatalog={goToCatalog}
         />
       );
@@ -43,7 +42,7 @@ const CatalogList = (props) => {
 
 const mapDispatchToProps = (dispatch) => ({
   changeShowModeCatalog: (data) => dispatch(changeShowModeCatalog(data)),
-  deleteCatalog: (data) => dispatch(deleteCatalog(data)),
+  deleteCatalog: (data) => dispatch(deleteCatalogAction(data)),
 });
 
 export default connect(null, mapDispatchToProps)(CatalogList);

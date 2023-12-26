@@ -1,8 +1,7 @@
 import React from 'react';
 import styles from './ContestInfo.module.sass';
 
-const LogoContestSpecialInfo = props => {
-  const { nameVenture, brandStyle } = props;
+const LogoContestSpecialInfo = ({ nameVenture, brandStyle }) => {
   return (
     <>
       {nameVenture && (

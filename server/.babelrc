@@ -1,5 +1,8 @@
 {
-  "presets": [
-    "@babel/preset-env"
+  "presets": ["@babel/preset-env"],
+  "plugins": [
+    ["babel-plugin-transform-remove-console", { "exclude": ["error", "warn"] }],
+    "babel-plugin-minify-constant-folding",
+    "babel-plugin-minify-dead-code-elimination"
   ]
 }

@@ -1,13 +1,13 @@
 import React from 'react';
 import styles from './Catalog.module.sass';
 
-const Catalog = (props) => {
-  const { deleteCatalog, goToCatalog } = props;
-  const { catalogName, chats, id } = props.catalog;
+const Catalog = ({ deleteCatalog, goToCatalog, catalog }) => {
+  const { catalogName, chats, id } = catalog;
+
   return (
     <div
       className={styles.catalogContainer}
-      onClick={(event) => goToCatalog(event, props.catalog)}
+      onClick={(event) => goToCatalog(event, catalog)}
     >
       <span className={styles.catalogName}>{catalogName}</span>
       <div className={styles.infoContainer}>

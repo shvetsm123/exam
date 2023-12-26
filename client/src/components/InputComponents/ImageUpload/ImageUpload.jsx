@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { useField } from 'formik';
 
-const ImageUpload = (props) => {
-  const [{ value, ...restFields }, , helpers] = useField(props.name);
-  const { uploadContainer, inputContainer, imgStyle } = props.classes;
+const ImageUpload = ({ name, classes }) => {
+  const [{ value, ...restFields }, , helpers] = useField(name);
+  const { uploadContainer, inputContainer, imgStyle } = classes;
   const [previewURL, setPreviewURL] = useState(null);
 
   const onChange = (e) => {

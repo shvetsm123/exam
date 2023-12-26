@@ -1,8 +1,7 @@
 import React from 'react';
 import styles from './ContestInfo.module.sass';
 
-const NameContestSpecialInfo = props => {
-  const { typeOfName, styleName } = props;
+const NameContestSpecialInfo = ({ typeOfName, styleName }) => {
   return (
     <>
       <div className={styles.dataContainer}>

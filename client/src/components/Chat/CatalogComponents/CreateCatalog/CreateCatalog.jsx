@@ -6,10 +6,8 @@ import styles from './CreateCatalog.module.sass';
 import { createCatalog } from '../../../../store/slices/chatSlice';
 import Schems from '../../../../utils/validators/validationSchems';
 
-const CreateCatalog = (props) => {
+const CreateCatalog = ({ createCatalog, addChatId }) => {
   const click = (values) => {
-    const { createCatalog } = props;
-    const { addChatId } = props;
     createCatalog({ catalogName: values.catalogName, chatId: addChatId });
   };
   return (

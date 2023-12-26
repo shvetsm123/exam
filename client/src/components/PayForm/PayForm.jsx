@@ -8,16 +8,21 @@ import { changeFocusOnCard } from '../../store/slices/paymentSlice';
 import PayInput from '../InputComponents/PayInput/PayInput';
 import Schems from '../../utils/validators/validationSchems';
 
-const PayForm = (props) => {
+const PayForm = ({
+  changeFocusOnCard: changeFocusProp,
+  sendRequest,
+  focusOnElement,
+  isPayForOrder,
+  back,
+}) => {
   const changeFocusOnCard = (name) => {
-    props.changeFocusOnCard(name);
+    changeFocusProp(name);
   };
 
   const pay = (values) => {
-    props.sendRequest(values);
+    sendRequest(values);
   };
 
-  const { focusOnElement, isPayForOrder } = props;
   return (
     <div className={styles.payFormContainer}>
       <span className={styles.headerInfo}>Payment Information</span>
@@ -146,7 +151,7 @@ const PayForm = (props) => {
           <span>{isPayForOrder ? 'Pay Now' : 'CashOut'}</span>
         </button>
         {isPayForOrder && (
-          <div onClick={() => props.back()} className={styles.backButton}>
+          <div onClick={() => back()} className={styles.backButton}>
             <span>Back</span>
           </div>
         )}

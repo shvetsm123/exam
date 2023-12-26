@@ -5,9 +5,8 @@ import SelectInput from '../../../SelectInput/SelectInput';
 import { addChatToCatalog } from '../../../../store/slices/chatSlice';
 import styles from './AddToCatalog.module.sass';
 
-const AddToCatalog = (props) => {
+const AddToCatalog = ({ catalogList, addChatId, addChatToCatalog }) => {
   const getCatalogsNames = () => {
-    const { catalogList } = props;
     const namesArray = [];
     catalogList.forEach((catalog) => {
       namesArray.push(catalog.catalogName);
@@ -16,7 +15,6 @@ const AddToCatalog = (props) => {
   };
 
   const getValueArray = () => {
-    const { catalogList } = props;
     const valueArray = [];
     catalogList.forEach((catalog) => {
       valueArray.push(catalog.id);
@@ -25,8 +23,7 @@ const AddToCatalog = (props) => {
   };
 
   const click = (values) => {
-    const { addChatId } = props;
-    props.addChatToCatalog({ chatId: addChatId, catalogId: values.catalogId });
+    addChatToCatalog({ chatId: addChatId, catalogId: values.catalogId });
   };
 
   const selectArray = getCatalogsNames();

@@ -7,12 +7,12 @@ import CONSTANTS from '../../../../constants';
 import FormInput from '../../../FormInput/FormInput';
 import Schems from '../../../../utils/validators/validationSchems';
 
-const ChatInput = (props) => {
+const ChatInput = ({ sendMessage, interlocutor }) => {
   const submitHandler = (values, { resetForm }) => {
-    props.sendMessage({
+    sendMessage({
       messageBody: values.message,
-      recipient: props.interlocutor.id,
-      interlocutor: props.interlocutor,
+      recipient: interlocutor.id,
+      interlocutor: interlocutor,
     });
     resetForm();
   };

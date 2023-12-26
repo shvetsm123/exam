@@ -4,11 +4,7 @@ import { Field, ErrorMessage } from 'formik';
 
 const FormTextArea = ({ label, classes, type, ...rest }) => (
   <Field {...rest}>
-    {props => {
-      const {
-        field,
-        meta: { touched, error },
-      } = props;
+    {({ field, meta: { touched, error } }) => {
       const { container, inputStyle, notValid, warning } = classes;
       return (
         <div className={container}>
@@ -21,7 +17,7 @@ const FormTextArea = ({ label, classes, type, ...rest }) => (
           />
           <ErrorMessage
             name={field.name}
-            component='span'
+            component="span"
             className={warning}
           />
         </div>

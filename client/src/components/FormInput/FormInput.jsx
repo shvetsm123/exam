@@ -4,12 +4,7 @@ import classNames from 'classnames';
 
 const FormInput = ({ classes, label, name, ...rest }) => (
   <Field name={name}>
-    {props => {
-      const {
-        field,
-        meta: { touched, error },
-      } = props;
-
+    {({ field, meta: { touched, error } }) => {
       const inputClassName = classNames(classes.input, {
         [classes.notValid]: touched && error,
         [classes.valid]: touched && !error,
@@ -17,7 +12,7 @@ const FormInput = ({ classes, label, name, ...rest }) => (
       return (
         <div className={classes.container}>
           <input
-            type='text'
+            type="text"
             {...field}
             placeholder={label}
             className={inputClassName}
@@ -25,7 +20,7 @@ const FormInput = ({ classes, label, name, ...rest }) => (
           />
           <ErrorMessage
             name={name}
-            component='span'
+            component="span"
             className={classes.warning}
           />
         </div>

@@ -2,14 +2,14 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 import styles from './Notification.module.sass';
 
-const Notification = props => (
+const Notification = ({ message, contestId, history }) => (
   <div>
     <br />
-    <span>{props.message}</span>
+    <span>{message}</span>
     <br />
-    {props.contestId && (
+    {contestId && (
       <span
-        onClick={() => props.history.push(`/contest/${props.contestId}`)}
+        onClick={() => history.push(`/contest/${contestId}`)}
         className={styles.goToContest}
       >
         Go to contest

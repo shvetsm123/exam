@@ -6,14 +6,10 @@ const SelectInput = ({
   classes,
   optionsArray,
   valueArray,
-  ...props
+  form: { setFieldValue },
+  meta: { initialValue },
+  field,
 }) => {
-  const {
-    form: { setFieldValue },
-    meta: { initialValue },
-    field,
-  } = props;
-
   const getOptionsArray = () => {
     const array = [];
     for (let i = 0; optionsArray && i < optionsArray.length; i++) {

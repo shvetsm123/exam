@@ -2,18 +2,18 @@ import React from 'react';
 import styles from './BundleBox.module.sass';
 import CONSTANTS from '../../constants';
 
-const BundleBox = props => {
+const BundleBox = ({ path, header, describe, setBundle }) => {
   const defaultPathToImages = `${CONSTANTS.STATIC_IMAGES_PATH}contestLabels/`;
 
   const renderImage = () => {
     const array = [];
-    for (let i = 0; i < props.path.length; i++) {
+    for (let i = 0; i < path.length; i++) {
       array.push(
         <img
-          src={defaultPathToImages + props.path[i]}
+          src={defaultPathToImages + path[i]}
           key={i}
           className={styles.imgContainer}
-          alt={props.path[i].replace(/.png/g, 'Contest')}
+          alt={path[i].replace(/.png/g, 'Contest')}
         />
       );
     }
@@ -21,25 +21,24 @@ const BundleBox = props => {
   };
 
   const mouseOverHandler = () => {
-    const element = document.getElementById(props.header);
+    const element = document.getElementById(header);
     for (let i = 0; i < element.children[0].children.length; i++) {
       element.children[0].children[
         i
-      ].src = `${defaultPathToImages}blue_${props.path[i]}`;
+      ].src = `${defaultPathToImages}blue_${path[i]}`;
     }
   };
 
   const mouseOutHandler = () => {
-    const element = document.getElementById(props.header);
+    const element = document.getElementById(header);
     for (let i = 0; i < element.children[0].children.length; i++) {
-      element.children[0].children[i].src = defaultPathToImages + props.path[i];
+      element.children[0].children[i].src = defaultPathToImages + path[i];
     }
   };
 
   const getBackClass = () =>
-    props.path.length === 1 ? ' ' : ` ${styles.combinedBundle}`;
+    path.length === 1 ? ' ' : ` ${styles.combinedBundle}`;
 
-  const { setBundle, header, describe } = props;
   return (
     <div
       onMouseOver={mouseOverHandler}

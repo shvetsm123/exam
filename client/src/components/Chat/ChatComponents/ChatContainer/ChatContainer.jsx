@@ -3,8 +3,7 @@ import { connect } from 'react-redux';
 import Chat from '../Chat/Chat';
 import CONSTANTS from '../../../../constants';
 
-const ChatContainer = (props) => {
-  const { data } = props;
+const ChatContainer = ({ data }) => {
   return <>{data && data.role !== CONSTANTS.MODER ? <Chat /> : null}</>;
 };
 

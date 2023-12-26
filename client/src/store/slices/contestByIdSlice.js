@@ -24,10 +24,9 @@ const initialState = {
   imagePath: null,
 };
 
-//---------- getContestById
 export const getContestById = decorateAsyncThunk({
   key: `${CONTEST_BY_ID_SLICE_NAME}/getContest`,
-  thunk: async payload => {
+  thunk: async (payload) => {
     const { data } = await restController.getContestById(payload);
     const { Offers } = data;
     delete data.Offers;
@@ -37,7 +36,7 @@ export const getContestById = decorateAsyncThunk({
 
 const getContestByIdExtraReducers = createExtraReducers({
   thunk: getContestById,
-  pendingReducer: state => {
+  pendingReducer: (state) => {
     state.isFetching = true;
     state.contestData = null;
     state.error = null;
@@ -52,10 +51,9 @@ const getContestByIdExtraReducers = createExtraReducers({
   rejectedReducer,
 });
 
-//---------- addOffer
 export const addOffer = decorateAsyncThunk({
   key: `${CONTEST_BY_ID_SLICE_NAME}/addOffer`,
-  thunk: async payload => {
+  thunk: async (payload) => {
     const { data } = await restController.setNewOffer(payload);
     return data;
   },
@@ -72,10 +70,9 @@ const addOfferExtraReducers = createExtraReducers({
   },
 });
 
-//---------- setOfferStatus
 export const setOfferStatus = decorateAsyncThunk({
   key: `${CONTEST_BY_ID_SLICE_NAME}/setOfferStatus`,
-  thunk: async payload => {
+  thunk: async (payload) => {
     const { data } = await restController.setOfferStatus(payload);
     return data;
   },
@@ -84,7 +81,7 @@ export const setOfferStatus = decorateAsyncThunk({
 const setOfferStatusExtraReducers = createExtraReducers({
   thunk: setOfferStatus,
   fulfilledReducer: (state, { payload }) => {
-    state.offers.forEach(offer => {
+    state.offers.forEach((offer) => {
       if (payload.status === CONSTANTS.OFFER_STATUS_WON) {
         offer.status =
           payload.id === offer.id
@@ -101,10 +98,9 @@ const setOfferStatusExtraReducers = createExtraReducers({
   },
 });
 
-//---------- changeMark
 export const changeMark = decorateAsyncThunk({
   key: `${CONTEST_BY_ID_SLICE_NAME}/changeMark`,
-  thunk: async payload => {
+  thunk: async (payload) => {
     const { data } = await restController.changeMark(payload);
     return { data, offerId: payload.offerId, mark: payload.mark };
   },
@@ -113,7 +109,7 @@ export const changeMark = decorateAsyncThunk({
 const changeMarkExtraReducers = createExtraReducers({
   thunk: changeMark,
   fulfilledReducer: (state, { payload: { data, offerId, mark } }) => {
-    state.offers.forEach(offer => {
+    state.offers.forEach((offer) => {
       if (offer.User.id === data.userId) {
         offer.User.rating = data.rating;
       }
@@ -128,8 +124,6 @@ const changeMarkExtraReducers = createExtraReducers({
   },
 });
 
-//-----------------------------------------------------
-
 const reducers = {
   updateStoreAfterUpdateContest: (state, { payload }) => {
     state.error = null;
@@ -143,13 +137,13 @@ const reducers = {
   changeEditContest: (state, { payload }) => {
     state.isEditContest = payload;
   },
-  clearAddOfferError: state => {
+  clearAddOfferError: (state) => {
     state.addOfferError = null;
   },
-  clearSetOfferStatusError: state => {
+  clearSetOfferStatusError: (state) => {
     state.setOfferStatusError = null;
   },
-  clearChangeMarkError: state => {
+  clearChangeMarkError: (state) => {
     state.changeMarkError = null;
   },
   changeShowImage: (state, { payload: { isShowOnFull, imagePath } }) => {
@@ -158,7 +152,7 @@ const reducers = {
   },
 };
 
-const extraReducers = builder => {
+const extraReducers = (builder) => {
   getContestByIdExtraReducers(builder);
   addOfferExtraReducers(builder);
   setOfferStatusExtraReducers(builder);

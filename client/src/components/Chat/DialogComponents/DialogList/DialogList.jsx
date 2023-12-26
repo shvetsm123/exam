@@ -11,19 +11,28 @@ import {
 import DialogBox from '../DialogBox/DialogBox';
 import styles from './DialogList.module.sass';
 
-const DialogList = (props) => {
+const DialogList = ({
+  changeChatFavorite,
+  changeChatBlock,
+  changeShowAddChatToCatalogMenu,
+  userId,
+  preview,
+  goToExpandedDialog,
+  chatMode,
+  removeChat,
+}) => {
   const changeFavorite = (data, event) => {
-    props.changeChatFavorite(data);
+    changeChatFavorite(data);
     event.stopPropagation();
   };
 
   const changeBlackList = (data, event) => {
-    props.changeChatBlock(data);
+    changeChatBlock(data);
     event.stopPropagation();
   };
 
   const changeShowCatalogCreation = (event, chatId) => {
-    props.changeShowAddChatToCatalogMenu(chatId);
+    changeShowAddChatToCatalogMenu(chatId);
     event.stopPropagation();
   };
 
@@ -43,7 +52,6 @@ const DialogList = (props) => {
 
   const renderPreview = (filterFunc) => {
     const arrayList = [];
-    const { userId, preview, goToExpandedDialog, chatMode, removeChat } = props;
     preview.forEach((chatPreview, index) => {
       const dialogNode = (
         <DialogBox
@@ -77,7 +85,6 @@ const DialogList = (props) => {
   };
 
   const renderChatPreview = () => {
-    const { chatMode } = props;
     if (chatMode === CONSTANTS.FAVORITE_PREVIEW_CHAT_MODE)
       return renderPreview(onlyFavoriteDialogs);
     if (chatMode === CONSTANTS.BLOCKED_PREVIEW_CHAT_MODE)

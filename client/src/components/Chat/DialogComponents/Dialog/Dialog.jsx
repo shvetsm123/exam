@@ -10,16 +10,14 @@ import ChatHeader from '../../ChatComponents/ChatHeader/ChatHeader';
 import styles from './Dialog.module.sass';
 import ChatInput from '../../ChatComponents/ChatInut/ChatInput';
 
-const Dialog = (props) => {
-  const {
-    getDialog,
-    clearMessageList,
-    messages,
-    userId,
-    interlocutor,
-    chatData,
-  } = props;
-
+const Dialog = ({
+  getDialog,
+  clearMessageList,
+  messages,
+  userId,
+  interlocutor,
+  chatData,
+}) => {
   const messagesEnd = useRef(null);
 
   useEffect(() => {
@@ -75,7 +73,6 @@ const Dialog = (props) => {
   };
 
   const blockMessage = () => {
-    const { userId } = props;
     const { blackList, participants } = chatData;
     const userIndex = participants.indexOf(userId);
     let message;

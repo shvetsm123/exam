@@ -6,17 +6,16 @@ import { changeEditModeOnUserProfile } from '../../store/slices/userProfileSlice
 import CONSTANTS from '../../constants';
 import styles from './UserInfo.module.sass';
 
-const UserInfo = (props) => {
+const UserInfo = ({ updateUser, isEdit, changeEditMode, data }) => {
   const updateUserData = (values) => {
     const formData = new FormData();
     formData.append('file', values.file);
     formData.append('firstName', values.firstName);
     formData.append('lastName', values.lastName);
     formData.append('displayName', values.displayName);
-    props.updateUser(formData);
+    updateUser(formData);
   };
 
-  const { isEdit, changeEditMode, data } = props;
   const { avatar, firstName, lastName, displayName, email, role, balance } =
     data;
   return (

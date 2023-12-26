@@ -3,9 +3,9 @@ import moment from 'moment';
 import styles from './ContestBox.module.sass';
 import CONSTANTS from '../../constants';
 
-const ContestBox = (props) => {
+const ContestBox = ({ data, goToExtended }) => {
   const getTimeStr = () => {
-    const diff = moment.duration(moment().diff(moment(props.data.createdAt)));
+    const diff = moment.duration(moment().diff(moment(data.createdAt)));
     let str = '';
     if (diff._data.days !== 0) str = `${diff._data.days}d `;
     if (diff._data.hours !== 0) str += `${diff._data.hours}h`;
@@ -14,7 +14,6 @@ const ContestBox = (props) => {
   };
 
   const getPreferenceContest = () => {
-    const { data } = props;
     if (data.contestType === CONSTANTS.NAME_CONTEST) return data.typeOfName;
     if (data.contestType === CONSTANTS.LOGO_CONTEST) return data.brandStyle;
     return data.typeOfTagline;
@@ -23,7 +22,7 @@ const ContestBox = (props) => {
   const ucFirstLetter = (string) =>
     string.charAt(0).toUpperCase() + string.slice(1);
 
-  const { id, title, contestType, prize, count, status } = props.data;
+  const { id, title, contestType, prize, count, status } = data;
   let statusText;
   if (status === CONSTANTS.CONTEST_STATUS_ACTIVE) {
     statusText = 'Going';
@@ -36,7 +35,7 @@ const ContestBox = (props) => {
   return (
     <div
       className={styles.contestBoxContainer}
-      onClick={() => props.goToExtended(id)}
+      onClick={() => goToExtended(id)}
     >
       <div className={styles.mainContestInfo}>
         <div className={styles.titleAndIdContainer}>

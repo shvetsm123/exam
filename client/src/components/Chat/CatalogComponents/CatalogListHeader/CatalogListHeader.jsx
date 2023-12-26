@@ -4,23 +4,25 @@ import { Formik, Form } from 'formik';
 import {
   changeShowModeCatalog,
   changeRenameCatalogMode,
-  changeCatalogName,
+  changeCatalogName as changeCatalogNameAction,
 } from '../../../../store/slices/chatSlice';
 import styles from './CatalogHeader.module.sass';
 import FormInput from '../../../FormInput/FormInput';
 import Schems from '../../../../utils/validators/validationSchems';
 
-const CatalogListHeader = (props) => {
-  const changeCatalogName = (values) => {
-    const { changeCatalogName, id } = props;
+const CatalogListHeader = ({
+  catalogName,
+  isRenameCatalog,
+  initialValues,
+  changeShowModeCatalog,
+  changeRenameCatalogMode,
+  changeCatalogName,
+  id,
+}) => {
+  const handleCatalogNameChange = (values) => {
     changeCatalogName({ catalogName: values.catalogName, catalogId: id });
   };
-  const {
-    catalogName,
-    changeShowModeCatalog,
-    changeRenameCatalogMode,
-    isRenameCatalog,
-  } = props;
+
   return (
     <div className={styles.headerContainer}>
       <i
@@ -39,8 +41,8 @@ const CatalogListHeader = (props) => {
       {isRenameCatalog && (
         <div className={styles.changeContainer}>
           <Formik
-            onSubmit={changeCatalogName}
-            initialValues={props.initialValues}
+            onSubmit={handleCatalogNameChange}
+            initialValues={initialValues}
             validationSchema={Schems.CatalogSchema}
           >
             <Form>
@@ -65,8 +67,8 @@ const CatalogListHeader = (props) => {
 };
 
 const mapStateToProps = (state) => {
-  const { isRenameCatalog } = state.chatStore;
-  const { catalogName, id } = state.chatStore.currentCatalog;
+  const { isRenameCatalog, currentCatalog } = state.chatStore;
+  const { catalogName, id } = currentCatalog;
   return {
     id,
     catalogName,
@@ -80,7 +82,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => ({
   changeShowModeCatalog: () => dispatch(changeShowModeCatalog()),
   changeRenameCatalogMode: () => dispatch(changeRenameCatalogMode()),
-  changeCatalogName: (data) => dispatch(changeCatalogName(data)),
+  changeCatalogName: (data) => dispatch(changeCatalogNameAction(data)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(CatalogListHeader);

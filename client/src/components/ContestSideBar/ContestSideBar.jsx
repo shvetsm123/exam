@@ -4,11 +4,9 @@ import moment from 'moment';
 import styles from './ContestSideBar.module.sass';
 import CONSTANTS from '../../constants';
 
-const ContestSideBar = (props) => {
+const ContestSideBar = ({ contestData, totalEntries, data }) => {
   const getTimeStr = () => {
-    const diff = moment.duration(
-      moment().diff(moment(props.contestData.createdAt))
-    );
+    const diff = moment.duration(moment().diff(moment(contestData.createdAt)));
     let str = '';
     if (diff._data.days !== 0) str = `${diff._data.days} days `;
     if (diff._data.hours !== 0) str += `${diff._data.hours} hours`;
@@ -17,8 +15,7 @@ const ContestSideBar = (props) => {
   };
 
   const renderContestInfo = () => {
-    const { totalEntries } = props;
-    const { User, prize, status } = props.contestData;
+    const { User, prize, status } = contestData;
     let statusText;
 
     if (status === CONSTANTS.CONTEST_STATUS_ACTIVE) {
@@ -68,7 +65,7 @@ const ContestSideBar = (props) => {
             </div>
           </div>
         </div>
-        {props.data.id !== User.id && (
+        {data.id !== User.id && (
           <div className={styles.infoCustomerContainer}>
             <span className={styles.labelCustomerInfo}>
               About Contest Holder

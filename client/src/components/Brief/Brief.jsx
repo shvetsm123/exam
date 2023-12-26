@@ -11,7 +11,17 @@ import styles from './Brief.module.sass';
 import ContestInfo from '../Contest/ContestInfo/ContestInfo';
 import Error from '../Error/Error';
 
-const Brief = (props) => {
+const Brief = ({
+  contestData,
+  isEditContest,
+  role,
+  goChat,
+  userStore,
+  contestUpdationStore,
+  update,
+  changeEditContest,
+  clearContestUpdationStore,
+}) => {
   const setNewContestData = (values) => {
     const data = new FormData();
     Object.keys(values).forEach((key) => {
@@ -20,8 +30,8 @@ const Brief = (props) => {
     if (values.file instanceof File) {
       data.append('file', values.file);
     }
-    data.append('contestId', props.contestData.id);
-    props.update(data);
+    data.append('contestId', contestData.id);
+    update(data);
   };
 
   const getContestObjInfo = () => {
@@ -37,7 +47,7 @@ const Brief = (props) => {
       typeOfTagline,
       originalFileName,
       contestType,
-    } = props.contestData;
+    } = contestData;
     const data = {
       focusOfWork,
       industry,
@@ -64,16 +74,8 @@ const Brief = (props) => {
     return defaultData;
   };
 
-  const {
-    isEditContest,
-    contestData,
-    changeEditContest,
-    role,
-    goChat,
-    clearContestUpdationStore,
-  } = props;
-  const { error } = props.contestUpdationStore;
-  const { id } = props.userStore.data;
+  const { error } = contestUpdationStore;
+  const { id } = userStore.data;
   if (!isEditContest) {
     return (
       <ContestInfo

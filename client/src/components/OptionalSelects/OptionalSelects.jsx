@@ -5,11 +5,11 @@ import FormInput from '../FormInput/FormInput';
 import styles from '../ContestForm/ContestForm.module.sass';
 import Spinner from '../Spinner/Spinner';
 
-const OptionalSelects = (props) => {
-  if (props.isFetching) {
+const OptionalSelects = ({ isFetching, contestType, dataForContest }) => {
+  if (isFetching) {
     return <Spinner />;
   }
-  switch (props.contestType) {
+  switch (contestType) {
     case CONSTANTS.NAME_CONTEST: {
       return (
         <>
@@ -22,7 +22,7 @@ const OptionalSelects = (props) => {
               selectInput: styles.select,
               warning: styles.warning,
             }}
-            optionsArray={props.dataForContest.data.typeOfName}
+            optionsArray={dataForContest.data.typeOfName}
           />
           <SelectInput
             name="styleName"
@@ -33,7 +33,7 @@ const OptionalSelects = (props) => {
               selectInput: styles.select,
               warning: styles.warning,
             }}
-            optionsArray={props.dataForContest.data.nameStyle}
+            optionsArray={dataForContest.data.nameStyle}
           />
         </>
       );
@@ -65,7 +65,7 @@ const OptionalSelects = (props) => {
               warning: styles.warning,
             }}
             header="Brand Style"
-            optionsArray={props.dataForContest.data.brandStyle}
+            optionsArray={dataForContest.data.brandStyle}
           />
         </>
       );
@@ -97,7 +97,7 @@ const OptionalSelects = (props) => {
               warning: styles.warning,
             }}
             header="Type tagline"
-            optionsArray={props.dataForContest.data.typeOfTagline}
+            optionsArray={dataForContest.data.typeOfTagline}
           />
         </>
       );

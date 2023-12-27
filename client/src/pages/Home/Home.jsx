@@ -9,11 +9,11 @@ import styles from './Home.module.sass';
 import carouselConstants from '../../carouselConstants';
 import Spinner from '../../components/Spinner/Spinner';
 
-const Home = (props) => {
+const Home = ({userStore}) => {
   const [index, setIndex] = useState(0);
   const [styleName, setStyle] = useState(styles.headline__static);
   const timeoutRef = useRef();
-  const { isFetching } = props.userStore;
+  const { isFetching } = userStore;
   const history = useHistory();
 
   useEffect(() => {
@@ -32,7 +32,7 @@ const Home = (props) => {
     CONSTANTS.HEADER_ANIMATION_TEXT[
       index % CONSTANTS.HEADER_ANIMATION_TEXT.length
     ];
-  if (props.userStore.data && props.userStore.data.role === CONSTANTS.MODER) {
+  if (userStore.data && userStore.data.role === CONSTANTS.MODER) {
     history.push('/moderPanel');
   }
   return (

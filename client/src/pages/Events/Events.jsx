@@ -11,6 +11,7 @@ const Events = () => {
       <div className={styles.container}>
         <h1 className={styles.h1}>BE READY FOR EVENTS</h1>
         <p className={styles.p}>* - required</p>
+        <hr />
         <Timer />
       </div>
 

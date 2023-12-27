@@ -9,19 +9,26 @@ import ProgressBar from '../../components/ProgressBar/ProgressBar';
 import Footer from '../../components/Footer/Footer';
 import Header from '../../components/Header/Header';
 
-const ContestCreationPage = (props) => {
+const ContestCreationPage = ({
+  contestCreationStore,
+  contestType,
+  saveContest,
+  bundleStore,
+  history,
+  title,
+}) => {
   const formRef = useRef();
-  const contestData = props.contestCreationStore.contests[props.contestType]
-    ? props.contestCreationStore.contests[props.contestType]
-    : { contestType: props.contestType };
+  const contestData = contestCreationStore.contests[contestType]
+    ? contestCreationStore.contests[contestType]
+    : { contestType: contestType };
 
   const handleSubmit = (values) => {
-    props.saveContest({ type: props.contestType, info: values });
+    saveContest({ type: contestType, info: values });
     const route =
-      props.bundleStore.bundle[props.contestType] === 'payment'
+      bundleStore.bundle[contestType] === 'payment'
         ? '/payment'
-        : `${props.bundleStore.bundle[props.contestType]}Contest`;
-    props.history.push(route);
+        : `${bundleStore.bundle[contestType]}Contest`;
+    history.push(route);
   };
 
   const submitForm = () => {
@@ -31,17 +38,17 @@ const ContestCreationPage = (props) => {
   };
 
   useEffect(() => {
-    if (!props.bundleStore.bundle) {
-      props.history.replace('/startContest');
+    if (!bundleStore.bundle) {
+      history.replace('/startContest');
     }
-  }, [props.bundleStore.bundle, props.history]);
+  }, [bundleStore.bundle, history]);
 
   return (
     <div>
       <Header />
       <div className={styles.startContestHeader}>
         <div className={styles.startContestInfo}>
-          <h2>{props.title}</h2>
+          <h2>{title}</h2>
           <span>
             Tell us a bit more about your business as well as your preferences
             so that creatives get a better idea about what you are looking for
@@ -52,7 +59,7 @@ const ContestCreationPage = (props) => {
       <div className={styles.container}>
         <div className={styles.formContainer}>
           <ContestForm
-            contestType={props.contestType}
+            contestType={contestType}
             handleSubmit={handleSubmit}
             formRef={formRef}
             defaultData={contestData}

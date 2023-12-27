@@ -4,9 +4,13 @@ import 'react-toastify/dist/ReactToastify.css';
 import moment from 'moment';
 import EventForm from './EventForm';
 import EventList from './EventList';
-import TimerUtils from './TimerUtils';
+import useTimerUtils from './useTimerUtils';
+import { useDispatch } from 'react-redux';
+import { setCompletedEventsCount } from '../../store/slices/timerSlice';
 
 const Timer = () => {
+  const dispatch = useDispatch();
+
   const [eventData, setEventData] = useState({
     eventName: '',
     eventStartDate: '',
@@ -17,19 +21,21 @@ const Timer = () => {
   const [events, setEvents] = useState([]);
 
   const {
-    calculateNotificationTime,
-    calculateUnitMultiplier,
-    formatTime,
     updateEventsCallback,
     sortEvents,
     completedEventsCount,
-  } = TimerUtils(events, eventData);
+    updatedEvents,
+    calculateUnitMultiplier,
+    formatTime,
+  } = useTimerUtils(events, eventData);
 
   useEffect(() => {
     const intervalId = setInterval(() => {
       const { updatedEvents, showToast } = updateEventsCallback();
 
       if (showToast) {
+        dispatch(setCompletedEventsCount(completedEventsCount.current));
+
         toast.success(`Completed Events: ${completedEventsCount.current}`, {
           position: 'top-center',
           autoClose: 5000,
@@ -48,83 +54,30 @@ const Timer = () => {
       setEvents(updatedEvents);
     }, 1000);
 
-    const notificationIntervalId = setInterval(() => {
-      const notificationTime = calculateNotificationTime();
-      if (notificationTime !== null) {
-        events.forEach((currentEvent) => {
-          if (
-            currentEvent.countdown &&
-            currentEvent.countdown.seconds === notificationTime &&
-            !currentEvent.notificationSent
-          ) {
-            toast.info(
-              `Notification for ${currentEvent.eventName}: ${formatTime(
-                notificationTime
-              )} remaining`,
-              {
-                position: 'top-center',
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: 'colored',
-                style: {
-                  backgroundColor: 'blue',
-                },
-              }
-            );
-            currentEvent.notificationSent = true;
-          }
-        });
-      }
-    }, 1000);
-
     return () => {
       clearInterval(intervalId);
-      clearInterval(notificationIntervalId);
     };
-  }, [
-    updateEventsCallback,
-    calculateNotificationTime,
-    events,
-    completedEventsCount,
-    formatTime,
-  ]);
+  }, [updateEventsCallback, completedEventsCount, dispatch, updatedEvents]);
 
   const handleInputChanger = (event) => {
     const { name, value } = event.target;
-    setEventData({
-      ...eventData,
+    setEventData((prevData) => ({
+      ...prevData,
       [name]: value,
-    });
+    }));
   };
 
-  const createEvent = (event) => {
-    event.preventDefault();
+  const createEvent = (values) => {
+    const endDate = moment(values.eventEndDate);
 
-    if (!eventData.eventName.trim()) {
-      alert('Please enter a valid event name');
-      return;
-    }
-
-    const endDate = moment(eventData.eventEndDate);
-    if (!endDate.isValid() || endDate.isBefore(moment())) {
-      alert('Please choose a future date');
-      return;
-    }
-
-    const remainingTimeInSeconds = calculateNotificationTime();
-
-    const newEvent = { ...eventData };
+    const newEvent = { ...values };
     newEvent.id = Date.now();
     newEvent.eventStartDate = moment().toISOString();
     newEvent.eventEndDate = endDate.toISOString();
     const eventDuration = Math.floor(endDate.diff(moment(), 'minutes'));
     newEvent.eventDuration = eventDuration;
 
-    setEvents([...events, newEvent]);
+    setEvents((prevEvents) => [...prevEvents, newEvent]);
     setEventData({
       eventName: '',
       eventStartDate: '',
@@ -134,51 +87,50 @@ const Timer = () => {
     });
 
     const notifyBeforeInSeconds =
-      eventData.notificationNumber *
-      calculateUnitMultiplier(eventData.notificationUnit);
+      values.notificationNumber *
+      calculateUnitMultiplier(values.notificationUnit);
 
-    if (
-      eventData.notificationNumber &&
-      eventData.notificationUnit &&
-      notifyBeforeInSeconds === remainingTimeInSeconds
-    ) {
-      const intervalId = setInterval(() => {
-        const now = moment();
-        const eventTime = moment(newEvent.eventEndDate);
-        const adjustedEventTime = eventTime.subtract(
-          notifyBeforeInSeconds,
-          'seconds'
-        );
-
-        if (now.isSameOrAfter(adjustedEventTime)) {
-          toast.info(
-            `Notification for ${newEvent.eventName}: ${formatTime(
-              remainingTimeInSeconds
-            )} remaining`,
-            {
-              position: 'top-center',
-              autoClose: 5000,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-              theme: 'colored',
-              style: {
-                backgroundColor: 'blue',
-              },
-            }
-          );
-          clearInterval(intervalId);
-        }
-      }, 1000);
-    } else {
-      console.log('Notification time did not match.');
+    if (notifyBeforeInSeconds <= 0) {
+      console.log('Invalid notification time.');
+      return;
     }
+
+    const now = moment();
+    const eventTime = moment(newEvent.eventEndDate);
+    const adjustedEventTime = eventTime.subtract(
+      notifyBeforeInSeconds,
+      'seconds'
+    );
+    const timeUntilNotification = adjustedEventTime.diff(now, 'milliseconds');
+
+    if (timeUntilNotification <= 0) {
+      console.log('Notification time has already passed.');
+      return;
+    }
+
+    setTimeout(() => {
+      toast.info(
+        `Notification for ${newEvent.eventName}: ${formatTime(
+          notifyBeforeInSeconds
+        )} before the event`,
+        {
+          position: 'top-center',
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'colored',
+          style: {
+            backgroundColor: 'blue',
+          },
+        }
+      );
+    }, timeUntilNotification);
   };
 
-  const numbers = ['', ...Array.from({ length: 60 }, (_, index) => index + 1)];
-
+  const numbers = ['', ...Array.from({ length: 61 }, (_, index) => index)];
   const units = ['', 'sec', 'min', 'hr', 'day'];
 
   return (
@@ -191,7 +143,7 @@ const Timer = () => {
         units={units}
       />
 
-      <EventList events={sortEvents(events)} />
+      {events.length > 0 && <EventList events={sortEvents(events)} />}
     </div>
   );
 };

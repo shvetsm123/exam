@@ -6,13 +6,25 @@ const Moder = ({ offers, history }) => {
     localStorage.clear();
     history.replace('login');
   };
+
+  const panelStyle = {
+    margin: '1rem',
+  };
+
+  const headingStyle = {
+    textAlign: 'center',
+    fontSize: '2rem',
+  };
+
+  const offerItems = offers.map((offer) => (
+    <OfferItem key={offer.id} {...offer} />
+  ));
+
   return (
-    <div style={{ margin: '1rem' }}>
-      <h1 style={{ textAlign: 'center', fontSize: '2rem' }}>MODER PANEL</h1>
+    <div style={panelStyle}>
+      <h1 style={headingStyle}>MODER PANEL</h1>
       <button onClick={logOut}>log out</button>
-      {offers.map((offer) => (
-        <OfferItem key={offer.id} {...offer} />
-      ))}
+      {offerItems}
     </div>
   );
 };

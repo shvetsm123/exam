@@ -8,35 +8,40 @@ import { getUser } from '../../store/slices/userSlice';
 
 class Header extends React.Component {
   componentDidMount() {
-    if (!this.props.data) {
-      this.props.getUser();
+    const { data, getUser } = this.props;
+    if (!data) {
+      getUser();
     }
   }
 
   logOut = () => {
     localStorage.clear();
-    this.props.clearUserStore();
-    this.props.history.replace('/login');
+    const { clearUserStore, history } = this.props;
+    clearUserStore();
+    history.replace('/login');
   };
 
   startContests = () => {
-    this.props.history.push('/startContest');
+    const { history } = this.props;
+    history.push('/startContest');
   };
 
   renderLoginButtons = () => {
-    if (this.props.data) {
+    const { data, completedEventsCount } = this.props;
+
+    if (data) {
       return (
         <>
           <div className={styles.userInfo}>
             <img
               src={
-                this.props.data.avatar === 'anon.png'
+                data.avatar === 'anon.png'
                   ? CONSTANTS.ANONYM_IMAGE_PATH
-                  : `${CONSTANTS.publicURL}${this.props.data.avatar}`
+                  : `${CONSTANTS.publicURL}${data.avatar}`
               }
               alt="user"
             />
-            <span>{`Hi, ${this.props.data.displayName}`}</span>
+            <span>{`Hi, ${data.displayName}`}</span>
             <img
               src={`${CONSTANTS.STATIC_IMAGES_PATH}menu-down.png`}
               alt="menu"
@@ -52,6 +57,14 @@ class Header extends React.Component {
                   <span>My Account</span>
                 </Link>
               </li>
+              {data.role === CONSTANTS.CUSTOMER && (
+                <li>
+                  <Link to="/events" style={{ textDecoration: 'none' }}>
+                    <span>Events</span>
+                    <span>{completedEventsCount || null}</span>
+                  </Link>
+                </li>
+              )}
               <li>
                 <Link to="/" style={{ textDecoration: 'none' }}>
                   <span>Messages</span>
@@ -77,6 +90,7 @@ class Header extends React.Component {
         </>
       );
     }
+
     return (
       <>
         <Link to="/login" style={{ textDecoration: 'none' }}>
@@ -249,9 +263,6 @@ class Header extends React.Component {
                     <li>
                       <a href="/">CROWDED BAR THEORY</a>
                     </li>
-                    <li>
-                      <a href="/events">EVENTS</a>
-                    </li>
                     <li className={styles.last}>
                       <a href="/">ALL ARTICLES</a>
                     </li>
@@ -274,7 +285,11 @@ class Header extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => state.userStore;
+const mapStateToProps = (state) => ({
+  data: state.userStore.data,
+  completedEventsCount: state.timerStore.completedEventsCount,
+  isFetching: state.userStore.isFetching,
+});
 const mapDispatchToProps = (dispatch) => ({
   getUser: () => dispatch(getUser()),
   clearUserStore: () => dispatch(clearUserStore()),

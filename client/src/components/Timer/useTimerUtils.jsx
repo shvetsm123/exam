@@ -1,7 +1,7 @@
 import { useCallback, useRef } from 'react';
 import moment from 'moment';
 
-const TimerUtils = (events, eventData) => {
+const useTimerUtils = (events, eventData) => {
   const completedEventsCount = useRef(0);
 
   const calculateCountdown = (event) => {
@@ -147,4 +147,4 @@ const TimerUtils = (events, eventData) => {
   };
 };
 
-export default TimerUtils;
+export default useTimerUtils;

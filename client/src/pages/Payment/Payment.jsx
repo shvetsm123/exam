@@ -7,18 +7,24 @@ import styles from './Payment.module.sass';
 import CONSTANTS from '../../constants';
 import Error from '../../components/Error/Error';
 
-const Payment = (props) => {
-  const { contests } = props.contestCreationStore;
-  const { error } = props.payment;
+const Payment = ({
+  contestCreationStore,
+  payment,
+  history,
+  pay,
+  clearPaymentStore,
+}) => {
+  const { contests } = contestCreationStore;
+  const { error } = payment;
 
   useEffect(() => {
     if (isEmpty(contests)) {
-      props.history.replace('startContest');
+      history.replace('startContest');
     }
-  }, [contests, props.history]);
+  }, [contests, history]);
 
   const handlePay = (values) => {
-    const { contests } = props.contestCreationStore;
+    const { contests } = contestCreationStore;
     const contestArray = Object.values(contests).map((contest) => ({
       ...contest,
     }));
@@ -36,14 +42,14 @@ const Payment = (props) => {
     data.append('contests', JSON.stringify(contestArray));
     data.append('price', '100');
 
-    props.pay({
+    pay({
       data: { formData: data },
-      history: props.history,
+      history: history,
     });
   };
 
   const goBack = () => {
-    props.history.goBack();
+    history.goBack();
   };
 
   return (
@@ -61,7 +67,7 @@ const Payment = (props) => {
             <Error
               data={error.data}
               status={error.status}
-              clearError={props.clearPaymentStore}
+              clearError={clearPaymentStore}
             />
           )}
           <PayForm sendRequest={handlePay} back={goBack} isPayForOrder />

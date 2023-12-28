@@ -9,8 +9,8 @@ const EventForm = ({ createEvent, numbers, units }) => {
   const timerUtils = TimerUtils([], {});
 
   const renderOptions = (options) => {
-    return options.map((option, index) => (
-      <option key={option + index} value={option}>
+    return options.map((option) => (
+      <option key={option.id} value={option}>
         {option}
       </option>
     ));

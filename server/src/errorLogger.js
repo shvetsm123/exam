@@ -1,6 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const moment = require('moment');
+const CronJob = require('cron').CronJob;
 
 const logFilePath = path.join(__dirname, 'errors.log');
 
@@ -68,6 +69,9 @@ function copyAndProcessErrorLog() {
     });
   });
 }
+
+const dailyJob = new CronJob('0 0 * * *', copyAndProcessErrorLog);
+dailyJob.start();
 
 module.exports = {
   logError,

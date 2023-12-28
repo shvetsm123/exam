@@ -23,7 +23,6 @@ app.use((err, req, res, next) => {
   next(err);
 });
 app.use(handlerError);
-setInterval(errorLogger.copyAndProcessErrorLog, 24 * 60 * 60 * 1000);
 
 const server = http.createServer(app);
 server.listen(PORT, () =>

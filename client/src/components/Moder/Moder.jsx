@@ -1,7 +1,7 @@
 import React from 'react';
 import OfferItem from './OfferItem/OfferItem';
 
-const Moder = ({ offers, history }) => {
+const Moder = ({ offers, history, getAllPendingOffers }) => {
   const logOut = () => {
     localStorage.clear();
     history.replace('login');
@@ -17,7 +17,11 @@ const Moder = ({ offers, history }) => {
   };
 
   const offerItems = offers.map((offer) => (
-    <OfferItem key={offer.id} {...offer} />
+    <OfferItem
+      key={offer.id}
+      {...offer}
+      getAllPendingOffers={getAllPendingOffers}
+    />
   ));
 
   return (

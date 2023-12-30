@@ -36,7 +36,11 @@ class ModerPanel extends React.Component {
 
     return (
       <div>
-        <Moder offers={currentOffers} history={this.props.history} />
+        <Moder
+          offers={currentOffers}
+          history={this.props.history}
+          getAllPendingOffers={this.props.getAllPendingOffers}
+        />
         <ReactPaginate
           className={styles.pagination}
           activeClassName={styles.active}

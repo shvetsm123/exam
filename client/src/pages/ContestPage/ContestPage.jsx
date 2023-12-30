@@ -36,11 +36,14 @@ class ContestPage extends React.Component {
 
   setOffersList = () => {
     const array = [];
-    for (let i = 0; i < this.props.contestByIdStore.offers.length; i++) {
+    const { offers } = this.props.contestByIdStore;
+
+    for (let i = 0; i < offers.length; i++) {
+      const offer = offers[i];
       array.push(
         <OfferBox
-          data={this.props.contestByIdStore.offers[i]}
-          key={this.props.contestByIdStore.offers[i].id}
+          data={offer}
+          key={offer.id}
           needButtons={this.needButtons}
           setOfferStatus={this.setOfferStatus}
           contestType={this.props.contestByIdStore.contestData.contestType}
@@ -48,6 +51,7 @@ class ContestPage extends React.Component {
         />
       );
     }
+
     return array.length !== 0 ? (
       array
     ) : (

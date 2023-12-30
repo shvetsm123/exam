@@ -13,8 +13,9 @@ const OfferItem = ({
   fileName,
   moderStatus,
   text,
-  userId,
-  contestId,
+  Contest,
+  User,
+  getAllPendingOffers,
 }) => {
   const resolveOffer = () => {
     confirmAlert({
@@ -50,11 +51,13 @@ const OfferItem = ({
     });
   };
 
-  const handleOfferStatusChange = (status, offerId) => {
-    updateOfferModerStatus({
+  const handleOfferStatusChange = async (status, offerId) => {
+    await updateOfferModerStatus({
       offerId,
       moderStatus: status,
     });
+
+    getAllPendingOffers();
   };
 
   return (
@@ -63,8 +66,9 @@ const OfferItem = ({
         <div className={styles.responseConainer}>
           {fileName ? (
             <span className={styles.response}>
-              contest id: {contestId}, <br /> creator id:
-              {userId}, <br /> offer: <br />
+              Contest title: {Contest.title} <br /> <br />
+              Creator's name: {User.displayName} <br /> <br />
+              Offer: <br /> <br />
               <img
                 className={styles.responseLogo}
                 src={`${CONSTANTS.publicURL}${fileName}`}
@@ -73,8 +77,9 @@ const OfferItem = ({
             </span>
           ) : (
             <span className={styles.response}>
-              contest id: {contestId}, <br /> creator id:
-              {userId}, <br /> offer: {text}
+              Contest title: {Contest.title} <br /> <br />
+              Creator's name: {User.displayName} <br /> <br />
+              Offer: {text}
             </span>
           )}
         </div>
@@ -84,6 +89,7 @@ const OfferItem = ({
           <div onClick={resolveOffer} className={styles.resolveBtn}>
             Resolve
           </div>
+          <br />
           <div onClick={rejectOffer} className={styles.rejectBtn}>
             Reject
           </div>

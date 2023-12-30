@@ -177,7 +177,7 @@ const resolveOffer = async (
 ) => {
   const finishedContest = await contestQueries.updateContestStatus(
     {
-      status: sequelize.literal(`   CASE
+      status: sequelize.literal(`CASE
             WHEN "id"=${contestId}  AND "orderId"='${orderId}' THEN '${
         CONSTANTS.CONTEST_STATUS_FINISHED
       }'
@@ -191,14 +191,16 @@ const resolveOffer = async (
     { orderId },
     transaction
   );
+
   await userQueries.updateUser(
     { balance: sequelize.literal('balance + ' + finishedContest.prize) },
     creatorId,
     transaction
   );
+
   const updatedOffers = await contestQueries.updateOfferStatus(
     {
-      status: sequelize.literal(` CASE
+      status: sequelize.literal(`CASE
             WHEN "id"=${offerId} THEN '${CONSTANTS.OFFER_STATUS_WON}'
             ELSE '${CONSTANTS.OFFER_STATUS_REJECTED}'
             END
@@ -209,7 +211,9 @@ const resolveOffer = async (
     },
     transaction
   );
+
   transaction.commit();
+
   const arrayRoomsId = [];
   updatedOffers.forEach((offer) => {
     if (
@@ -219,14 +223,18 @@ const resolveOffer = async (
       arrayRoomsId.push(offer.userId);
     }
   });
+
   controller
     .getNotificationController()
     .emitChangeOfferStatus(
       creatorId,
-      'Congrats! You just win a contest!',
+      'Congrats! You just won a contest!',
       contestId
     );
-  return updatedOffers[0].dataValues;
+
+  const updatedOffer = updatedOffers.find((offer) => offer.id === offerId);
+
+  return updatedOffer ? updatedOffer.dataValues : null;
 };
 
 module.exports.setOfferStatus = async (req, res, next) => {
@@ -351,6 +359,7 @@ module.exports.getAllPendingOffers = async (req, res, next) => {
     const allOffers = await Offer.findAll({
       ...req.pagination,
       where: { moderStatus: CONSTANTS.MODER_STATUS_PENDING },
+      include: [User, Contest],
     });
     res.send(allOffers);
   } catch (error) {

@@ -6,6 +6,7 @@ const {
   Message,
 } = require('../models');
 const { Op } = require('sequelize');
+const controller = require('../socketInit');
 
 const getUserData = async (userId) => {
   return await User.findOne({
@@ -65,10 +66,9 @@ module.exports.getPreview = async (req, res, next) => {
         });
       }
     }
-
     res.send(conversationsWithInterlocutors);
   } catch (err) {
-    console.log('getPreview: ', err.message);
+    console.log('getPreview:', err.message);
     next(err);
   }
 };
@@ -173,6 +173,11 @@ module.exports.addMessage = async (req, res, next) => {
         updatedAt: message.updatedAt,
         participants,
       },
+      preview,
+    });
+
+    controller.getChatController().emitNewMessage(interlocutor.id, {
+      message,
       preview,
     });
   } catch (err) {

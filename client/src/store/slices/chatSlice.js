@@ -313,7 +313,7 @@ const reducers = {
     const { messagesPreview } = state;
     let isNew = true;
     messagesPreview.forEach((preview) => {
-      if (isEqual(preview.participants, message.participants)) {
+      if (preview.id === message.conversationId) {
         preview.text = message.body;
         preview.sender = message.sender;
         preview.createdAt = message.createdAt;

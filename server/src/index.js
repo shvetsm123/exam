@@ -4,7 +4,6 @@ const cors = require('cors');
 require('./dbMongo/mongoose');
 const router = require('./router');
 const controller = require('./socketInit');
-const handlerError = require('./handlerError/handler');
 const multerErrorHandler = require('./handlerError/multerHandler');
 const path = require('path');
 const { FILES_PATH } = require('./constants');
@@ -22,7 +21,6 @@ app.use((err, req, res, next) => {
   errorLogger.logError(err);
   next(err);
 });
-app.use(handlerError);
 
 const server = http.createServer(app);
 server.listen(PORT, () =>

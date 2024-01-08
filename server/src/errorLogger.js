@@ -1,4 +1,4 @@
-const fs = require('fs');
+const fs = require('fs').promises;
 const path = require('path');
 const moment = require('moment');
 const CronJob = require('cron').CronJob;
@@ -15,59 +15,62 @@ function logError(error) {
 
   const logString = JSON.stringify(logEntry) + '\n';
 
-  fs.appendFile(logFilePath, logString, (err) => {
-    if (err) {
-      console.error('Error writing to log file:', err);
-    }
+  return fs.appendFile(logFilePath, logString).catch((err) => {
+    console.error('Error writing to log file:', err);
   });
 }
 
-function copyAndProcessErrorLog() {
-  fs.readFile(logFilePath, 'utf8', (err, data) => {
-    if (err) {
-      console.error(`Error reading file ${logFilePath}: ${err.message}`);
-      return;
-    }
-
-    const destinationFileName = path.join(
-      __dirname,
-      `errors_${moment().format('YYYY-MM-DD_HH-mm-ss')}.log`
-    );
-
-    const processedData = data
-      .split('\n')
-      .map((line) => {
-        try {
-          const entry = JSON.parse(line);
-          delete entry.stackTrace;
-          return JSON.stringify(entry);
-        } catch (err) {
-          console.log(err);
-        }
-      })
-      .filter(Boolean)
-      .join('\n');
-
-    fs.writeFile(destinationFileName, processedData, (err) => {
-      if (err) {
-        console.error(
-          `Error writing to file ${destinationFileName}: ${err.message}`
-        );
-      } else {
-        console.log(
-          `File ${destinationFileName} successfully created and written.`
-        );
-
-        fs.writeFile(logFilePath, '', (err) => {
-          if (err) {
-            console.error(`Error clearing file ${logFilePath}: ${err.message}`);
-          } else {
-            console.log(`File ${logFilePath} successfully cleared.`);
-          }
-        });
-      }
-    });
+function readLogFile() {
+  return fs.readFile(logFilePath, 'utf8').catch((err) => {
+    console.error(`Error reading file ${logFilePath}: ${err.message}`);
+    throw err;
   });
+}
+
+function processLogData(data) {
+  const destinationFileName = path.join(
+    __dirname,
+    `errors_${moment().format('YYYY-MM-DD_HH-mm-ss')}.log`
+  );
+
+  const processedData = data
+    .split('\n')
+    .map((line) => {
+      try {
+        const entry = JSON.parse(line);
+        delete entry.stackTrace;
+        return JSON.stringify(entry);
+      } catch (err) {
+        console.log(err);
+      }
+    })
+    .filter(Boolean)
+    .join('\n');
+
+  return fs
+    .writeFile(destinationFileName, processedData)
+    .then(() => {
+      console.log(
+        `File ${destinationFileName} successfully created and written.`
+      );
+
+      return fs.writeFile(logFilePath, '');
+    })
+    .then(() => {
+      console.log(`File ${logFilePath} successfully cleared.`);
+    })
+    .catch((err) => {
+      console.error(`Error writing/clearing files: ${err.message}`);
+      throw err;
+    });
+}
+
+function copyAndProcessErrorLog() {
+  readLogFile()
+    .then(processLogData)
+    .catch((err) => {
+      console.error('Error copying and processing error log:', err);
+    });
 }
 
 const dailyJob = new CronJob('0 0 * * *', copyAndProcessErrorLog);

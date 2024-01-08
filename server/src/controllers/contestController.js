@@ -212,6 +212,12 @@ const resolveOffer = async (
     transaction
   );
 
+  await contestQueries.updateModerStatusesForContest(
+    { moderStatus: CONSTANTS.MODER_STATUS_REJECTED },
+    { contestId },
+    transaction
+  );
+
   transaction.commit();
 
   const arrayRoomsId = [];
@@ -233,7 +239,6 @@ const resolveOffer = async (
     );
 
   const updatedOffer = updatedOffers.find((offer) => offer.id === offerId);
-
   return updatedOffer ? updatedOffer.dataValues : null;
 };
 

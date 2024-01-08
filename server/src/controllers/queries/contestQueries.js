@@ -1,5 +1,6 @@
 const { Contest, Offer } = require('../../models');
 const ServerError = require('../../errors/ServerError');
+const CONSTANTS = require('../../constants');
 
 module.exports.updateContest = async (data, predicate, transaction) => {
   const [updatedCount, [updatedContest]] = await Contest.update(data, {
@@ -11,6 +12,24 @@ module.exports.updateContest = async (data, predicate, transaction) => {
     throw new ServerError('cannot update Contest');
   } else {
     return updatedContest.dataValues;
+  }
+};
+
+module.exports.updateModerStatusesForContest = async (
+  data,
+  predicate,
+  transaction
+) => {
+  const [updatedCount] = await Offer.update(data, {
+    where: {
+      ...predicate,
+      moderStatus: CONSTANTS.MODER_STATUS_PENDING,
+    },
+    transaction,
+  });
+
+  if (updatedCount < 1) {
+    throw new ServerError('Cannot update moderStatus');
   }
 };
 

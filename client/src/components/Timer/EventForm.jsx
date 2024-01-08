@@ -1,20 +1,44 @@
 import React from 'react';
 import { useFormik } from 'formik';
-import * as Yup from 'yup';
 import styles from './Timer.module.css';
 import moment from 'moment';
 import TimerUtils from './useTimerUtils';
+import Schems from '../../utils/validators/validationSchems';
+
+const renderOptions = (options) => {
+  return options.map((option) => (
+    <option key={option.id} value={option}>
+      {option}
+    </option>
+  ));
+};
+
+const InputField = ({ label, type, field, form }) => (
+  <div className={styles.inputContainer}>
+    <label>{label}:</label>
+    <br />
+    <input type={type} {...field} className={styles.inputField} />
+    {form.touched[field.name] && form.errors[field.name] && (
+      <div className={styles.error}>{form.errors[field.name]}</div>
+    )}
+  </div>
+);
+
+const SelectField = ({ label, options, field, form }) => (
+  <div className={styles.inputContainer}>
+    <label>{label}:</label>
+    <br />
+    <select {...field} className={styles.selectField}>
+      {renderOptions(options)}
+    </select>
+    {form.touched[field.name] && form.errors[field.name] && (
+      <div className={styles.error}>{form.errors[field.name]}</div>
+    )}
+  </div>
+);
 
 const EventForm = ({ createEvent, numbers, units }) => {
   const timerUtils = TimerUtils([], {});
-
-  const renderOptions = (options) => {
-    return options.map((option) => (
-      <option key={option.id} value={option}>
-        {option}
-      </option>
-    ));
-  };
 
   const formik = useFormik({
     initialValues: {
@@ -23,14 +47,7 @@ const EventForm = ({ createEvent, numbers, units }) => {
       notificationNumber: '',
       notificationUnit: '',
     },
-    validationSchema: Yup.object({
-      eventName: Yup.string().required('Please enter a valid event name'),
-      eventEndDate: Yup.date()
-        .min(new Date())
-        .required('Please choose a future date'),
-      notificationNumber: Yup.number().integer('Please enter a valid number'),
-      notificationUnit: Yup.string('Please select a unit'),
-    }),
+    validationSchema: Schems.EventSchema,
     onSubmit: (values, { resetForm }) => {
       const notifyBeforeInSeconds =
         values.notificationNumber *
@@ -56,75 +73,32 @@ const EventForm = ({ createEvent, numbers, units }) => {
   });
 
   return (
-    <form onSubmit={(event) => formik.handleSubmit(event)}>
+    <form onSubmit={formik.handleSubmit}>
       <div className={styles.formContainer}>
-        <div className={styles.inputContainer}>
-          <label>Event name*:</label>
-          <br />
-          <input
-            type="text"
-            name="eventName"
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            value={formik.values.eventName}
-            className={styles.inputField}
-          />
-          {formik.touched.eventName && formik.errors.eventName && (
-            <div className={styles.error}>{formik.errors.eventName}</div>
-          )}
-        </div>
-
-        <div className={styles.inputContainer}>
-          <label>Event date*:</label>
-          <br />
-          <input
-            type="datetime-local"
-            name="eventEndDate"
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            value={formik.values.eventEndDate}
-            className={styles.inputField}
-          />
-          {formik.touched.eventEndDate && formik.errors.eventEndDate && (
-            <div className={styles.error}>{formik.errors.eventEndDate}</div>
-          )}
-        </div>
-
-        <div className={styles.inputContainer}>
-          <label>Notify before:</label>
-          <br />
-          <select
-            name="notificationNumber"
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            value={formik.values.notificationNumber}
-            className={styles.selectField}
-          >
-            {renderOptions(numbers)}
-          </select>
-          {formik.touched.notificationNumber &&
-            formik.errors.notificationNumber && (
-              <div className={styles.error}>
-                {formik.errors.notificationNumber}
-              </div>
-            )}
-          <select
-            name="notificationUnit"
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            value={formik.values.notificationUnit}
-            className={styles.selectField}
-          >
-            {renderOptions(units)}
-          </select>
-          {formik.touched.notificationUnit &&
-            formik.errors.notificationUnit && (
-              <div className={styles.error}>
-                {formik.errors.notificationUnit}
-              </div>
-            )}
-        </div>
-
+        <InputField
+          label="Event name"
+          type="text"
+          field={formik.getFieldProps('eventName')}
+          form={formik}
+        />
+        <InputField
+          label="Event date"
+          type="datetime-local"
+          field={formik.getFieldProps('eventEndDate')}
+          form={formik}
+        />
+        <SelectField
+          label="Notify before"
+          options={numbers}
+          field={formik.getFieldProps('notificationNumber')}
+          form={formik}
+        />
+        <SelectField
+          label="Notification unit"
+          options={units}
+          field={formik.getFieldProps('notificationUnit')}
+          form={formik}
+        />
         <button type="submit" className={styles.createButton}>
           CREATE EVENT
         </button>

@@ -208,6 +208,15 @@ const Schems = {
       )
       .required('required'),
   }),
+  EventSchema: yup.object({
+    eventName: yup.string().required('Please enter a valid event name'),
+    eventEndDate: yup
+      .date()
+      .min(new Date())
+      .required('Please choose a future date'),
+    notificationNumber: yup.number().integer('Please enter a valid number'),
+    notificationUnit: yup.string('Please select a unit'),
+  }),
 };
 
 export default Schems;
